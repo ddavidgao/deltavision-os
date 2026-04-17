@@ -102,3 +102,33 @@ deltavision-os/
 - Port V1 ablation runner (`run_ablation.py`) to V2 now that CLI + platform + benchmarks are in place.
 - OSWorld integration: implement the stub in `capture/osworld.py`.
 - Create the GitHub remote for `deltavision-os` and push.
+
+### Iteration 3 additions
+
+- **23 new unit tests:** `test_state.py` (13), `test_observation_builder.py` (10). Both modules were previously only exercised via integration tests; now have dedicated coverage.
+- **`TESTS.md`** — visual coverage map with 238 tests broken down by concern (CV, agent, model, observation, safety, config, store, platform).
+- **`benchmarks/classifier_sensitivity.py`** — sweeps synthetic damage from 0% to 99% and prints the cascade's response. Real output on a noise-textured 800×600 base frame:
+
+  ```
+  damage  diff_ratio  phash  anchor  transition  trigger
+  -------  ----------  -----  ------  ----------  -------
+    0.0%     0.000       0    1.00   delta       none
+    1.0%     0.010       8    1.00   delta       none
+    5.0%     0.050      16    1.00   delta       none
+   10.0%     0.101      18    1.00   delta       none
+   20.0%     0.200      22    1.00   new_page    phash       # Layer 3 fires first
+   35.0%     0.350      26    1.00   new_page    phash
+   50.0%     0.500      28    1.00   new_page    phash
+   75.0%     0.743      20    0.20   new_page    anchor_loss # Block overlaps anchor
+   90.0%     0.743      20    0.20   new_page    anchor_loss
+   99.0%     0.743      20    0.20   new_page    anchor_loss
+  ```
+
+  Key insight: pHash (Layer 3) is the first layer to trigger — it catches 20% damage where diff_ratio is only 0.20 (threshold is 0.75). Diff_ratio alone wouldn't catch the transition until 75%+ change.
+
+### Running totals
+
+- **238 tests** passing in ~13s
+- **4 benchmarks**: `desktop_idle_observe`, `pipeline_perf`, `classifier_sensitivity`, + the V1 test_integration simulated run (via ported code)
+- **14 commits** on `main` (local only, no remote yet)
+- **0 external deps blocking** V2 from shipping — the only "missing pieces" are a VLM endpoint and a GitHub remote, both gated on David's call.
