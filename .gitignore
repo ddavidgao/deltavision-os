@@ -24,3 +24,10 @@ video_frames/
 # OSWorld VM stuff
 osworld_envs/
 vm_snapshots/
+
+# Claude Code local state
+.claude/
+
+# Public-sync tooling — private repo only, never commit
+sync-public.sh
+.public-exclude
