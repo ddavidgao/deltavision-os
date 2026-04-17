@@ -190,3 +190,103 @@ class TestLoopIntegration:
         assert platform.actions_executed[0].type == ActionType.DRAG
         # State log uses str(action) which should match the V2 drag format
         assert "drag(" in state.transition_log[0]["action"]
+
+    def test_new_page_via_diff_ratio_increments_counter(self):
+        """A near-total pixel swap should fire NEW_PAGE via Layer 2 (diff ratio).
+        Loop must re-anchor, reset no-change streak, and bump new_page_count."""
+        # Two wildly different solid frames — diff_ratio will exceed threshold
+        frames = [
+            _solid((0, 0, 0)),           # black
+            _solid((255, 255, 255)),     # white — diff ~100%
+            _solid((128, 0, 128)),       # purple — another NEW_PAGE
+        ]
+        platform = MockPlatform(frames)
+        config = DeltaVisionConfig(MAX_STEPS=5)
+        model = ScriptedModel([
+            Action(type=ActionType.CLICK, x=50, y=50),
+            Action(type=ActionType.CLICK, x=100, y=100),
+        ])
+
+        async def run():
+            async with platform:
+                return await run_agent(
+                    task="force new_page",
+                    model=model,
+                    platform=platform,
+                    config=config,
+                )
+
+        state = asyncio.run(run())
+        assert state.step == 2
+        assert state.new_page_count == 2, \
+            f"Expected 2 NEW_PAGE events, got {state.new_page_count}"
+        # Both transitions should be NEW_PAGE
+        for t in state.transition_log:
+            assert t["transition"] == "new_page", \
+                f"Expected new_page, got {t['transition']} (diff={t['diff_ratio']})"
+
+    def test_safety_block_increments_step_without_executing(self):
+        """When safety blocks an action, the platform's execute() is not called
+        but step advances and a safety-block observation is recorded."""
+        from safety import SafetyLayer
+
+        frames = [_striped(0), _striped(5), _striped(8)]
+        platform = MockPlatform(frames)
+        config = DeltaVisionConfig(MAX_STEPS=5)
+        # Type action with SSN-shaped text — safety should block
+        model = ScriptedModel([
+            Action(type=ActionType.TYPE, text="123456789"),
+            Action(type=ActionType.CLICK, x=10, y=10),  # should execute
+        ])
+        safety = SafetyLayer()
+
+        async def run():
+            async with platform:
+                return await run_agent(
+                    task="safety block test",
+                    model=model,
+                    platform=platform,
+                    config=config,
+                    safety=safety,
+                )
+
+        state = asyncio.run(run())
+        # The first TYPE action was blocked → platform.execute was NOT called
+        # for it. The second CLICK action went through.
+        assert len(platform.actions_executed) == 1
+        assert platform.actions_executed[0].type == ActionType.CLICK
+
+        # There should be at least one obs with a safety_block trigger
+        triggers = [getattr(o, "trigger_reason", "") for o in state.observations]
+        assert any("safety_block" in t for t in triggers), \
+            f"Expected safety_block trigger, got: {triggers}"
+
+    def test_force_full_frame_mode(self):
+        """--force-full-frame config makes every step a FULL_FRAME observation,
+        even when the CV pipeline would have classified as DELTA."""
+        frames = [_striped(0), _striped(3), _striped(5)]
+        platform = MockPlatform(frames)
+        config = DeltaVisionConfig(MAX_STEPS=5, FORCE_FULL_FRAME=True)
+        model = ScriptedModel([
+            Action(type=ActionType.CLICK, x=10, y=10),
+            Action(type=ActionType.CLICK, x=20, y=20),
+        ])
+
+        async def run():
+            async with platform:
+                return await run_agent(
+                    task="ablation: force full frame",
+                    model=model,
+                    platform=platform,
+                    config=config,
+                )
+
+        state = asyncio.run(run())
+        # Every observation after the initial should be full_frame
+        for obs in state.observations:
+            assert obs.obs_type == "full_frame", \
+                f"FORCE_FULL_FRAME should make every obs full_frame, got {obs.obs_type}"
+        # Triggers should reflect the forced nature
+        non_initial = [o for o in state.observations if getattr(o, "trigger_reason", "") != "initial"]
+        assert all("forced_full" in o.trigger_reason for o in non_initial), \
+            [o.trigger_reason for o in non_initial]
