@@ -1,0 +1,44 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: V2 test suite
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install system deps (OpenCV)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libglib2.0-0 libgl1
+
+      - name: Install project + dev deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run tests (skip mss-capture tests — CI has no display)
+        run: |
+          pytest tests/ -q --tb=short \
+            --ignore=tests/test_os_native_capture.py \
+            --ignore=tests/test_v2_real_capture.py
+
+      - name: Report test count
+        if: success()
+        run: |
+          echo "V2 offline tests passed on Python ${{ matrix.python-version }}"

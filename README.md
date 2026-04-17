@@ -17,17 +17,85 @@ Sibling to [`deltavision`](https://github.com/ddavidgao/deltavision), which targ
 
 **If you want browser automation, use V1.** If you want desktop / OS / OSWorld, use this.
 
-## Status
+## Quick Start
 
-Under construction. Architecture:
+```bash
+git clone https://github.com/ddavidgao/deltavision-os.git
+cd deltavision-os
+python -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+
+# 174 tests (7 of which need a real display, skip on CI)
+pytest tests/ -q
+
+# Live desktop benchmark (pure CV, no model needed)
+python benchmarks/desktop_idle_observe.py --rounds 5 --interval 0.5
+```
+
+Expected benchmark output on a quiet desktop:
 
 ```
-capture/   # Platform abstraction (OS, OSWorld, VNC)
-execute/   # Action executor abstraction
-vision/    # CV pipeline (diff, classify, pHash) — ported from V1
-agent/     # Loop, state, typed actions
-model/     # VLM backends + llama.cpp
-eval/      # OSWorld eval harness integration
+step   1  delta     diff=0.000  phash= 0  anchor=1.00  trigger=none
+step   2  delta     diff=0.000  phash= 0  anchor=1.00  trigger=none
+step   3  delta     diff=0.000  phash= 0  anchor=1.00  trigger=none
+step   4  delta     diff=0.000  phash= 0  anchor=1.00  trigger=none
+step   5  delta     diff=0.000  phash= 0  anchor=1.00  trigger=none
+
+Observed 5 steps in 3.1s
+DELTA:     5 (100.0%)
+NEW_PAGE:  0
+
+Token savings if paired with a VLM at 1600 tok/full_frame, ~400 tok/delta:
+  Full frame every step:  8,000 tokens
+  DeltaVision gated:      2,000 tokens (6,000 saved)
+```
+
+### Running the CLI
+
+```bash
+# Scripted model: real capture, no real actions (safe demo)
+python main.py --task "observe desktop" --platform os --backend scripted --max-steps 5
+
+# Claude API (real model, but DRIVES YOUR MOUSE — start with small max-steps)
+export ANTHROPIC_API_KEY=sk-...
+python main.py --task "..." --platform os --backend claude --safety strict --max-steps 10
+
+# llama.cpp server (Tailscale-friendly)
+python main.py --task "..." --platform os --backend llamacpp \
+    --host 100.70.57.66 --port 8080 --model qwen3-vl-8b
+
+# Ablation: force full-frame (disable delta gating)
+python main.py --task "..." --platform os --backend claude --force-full-frame
+```
+
+**Warning:** `--platform os` drives the REAL mouse and keyboard. Start with `--safety strict` and small `--max-steps` until you trust the model.
+
+## Architecture
+
+```
+deltavision-os/
+├── capture/          # Platform abstraction (5-method ABC)
+│   ├── base.py           Platform class
+│   ├── os_native.py      mss + pyautogui impl (macOS/Linux/Windows)
+│   └── osworld.py        OSWorld VM wrapper (stub)
+├── vision/           # Zero-LLM CV pipeline (ported from V1)
+│   ├── diff.py, classifier.py, phash.py, crops.py
+├── agent/
+│   ├── loop.py           Platform-agnostic agent loop
+│   ├── state.py          Observation + response history
+│   └── actions.py        10 typed actions (V1's 6 + DRAG/DOUBLE_CLICK/RIGHT_CLICK/HOTKEY)
+├── observation/      # FullFrame + Delta observation types
+├── model/            # Pluggable backends
+│   ├── base.py, _response_parser.py  shared
+│   ├── llamacpp.py       V2 new: OpenAI-compat for local VLMs
+│   ├── scripted.py       for testing without API costs
+│   └── claude.py, openai.py, ollama.py  (carried from V1)
+├── safety.py         # Model-agnostic action validation
+├── config.py         # All thresholds, validated at construction
+├── results/          # SQLite result store
+├── benchmarks/       # desktop_idle_observe.py and future additions
+├── main.py           # CLI entrypoint
+└── tests/            # 174 passing (165 offline, 9 need display)
 ```
 
 ## Shared concept with V1
@@ -35,6 +103,26 @@ eval/      # OSWorld eval harness integration
 The core insight is identical: a zero-LLM CV pipeline gates what the model sees. Full frame on `NEW_PAGE`, delta thumbnail + crops on `DELTA`. Same 4-layer classifier cascade. Same ~80% token savings on sticky-context tasks.
 
 The **platform abstraction** is new. V1 had three Playwright-specific callsites in its loop; V2 replaces them with a generic `Platform` interface that any capture+execute backend can implement.
+
+## What's working
+
+- [x] Platform ABC with async context manager lifecycle
+- [x] OSNativePlatform: mss capture + pyautogui actions (macOS verified)
+- [x] OSWorld platform stub (waits for env harness)
+- [x] 4-layer CV classifier cascade (URL → diff → pHash → anchor) ported from V1
+- [x] Agent loop with force-refresh on no-effect streaks
+- [x] 10 action types including DRAG with x2/y2
+- [x] Safety layer (credential / URL / action limits)
+- [x] Model backends: Claude, OpenAI, Ollama, llama.cpp server, scripted
+- [x] 174 passing tests
+- [x] Live desktop benchmark proves CV pipeline works without browser
+
+## What's next
+
+- [ ] OSWorld VM integration (needs OSWorld env install)
+- [ ] First V1 benchmark port (run_ablation.py equivalent with OS-native driver)
+- [ ] llama.cpp server on GPU machine, real end-to-end with MAI-UI-8B / Qwen3-VL-8B
+- [ ] Migration of V1 paper section 5 (OS-level experiments)
 
 ## License
 
