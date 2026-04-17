@@ -4,6 +4,13 @@ Delta-first computer-use agent framework for **OS-level** and **OSWorld** enviro
 
 Sibling to [`deltavision`](https://github.com/ddavidgao/deltavision), which targets browsers via Playwright. This project extends the DeltaVision observation middleware to the full desktop: any native application, any OS task, any OSWorld VM benchmark.
 
+## Status
+
+- **238 tests** passing (229 offline, 9 need a real display)
+- **Live V2 E2E**: real Qwen2.5-VL on an RTX 5080 via SSH tunnel, driving a real Mac desktop through the agent loop — 5 steps, 4.6% median diff, 56% hypothetical token savings vs full-frame. Video at [`benchmarks/v2_live_demo.mp4`](benchmarks/v2_live_demo.mp4).
+- 4 benchmarks checked in: idle-desktop observation, pipeline perf, classifier sensitivity sweep, and the live-demo recorder.
+- OSWorld integration still stubbed.
+
 ## Scope
 
 | | `deltavision` (V1) | `deltavision-os` (V2, this repo) |
@@ -11,7 +18,7 @@ Sibling to [`deltavision`](https://github.com/ddavidgao/deltavision), which targ
 | Observation source | Playwright screenshots | `mss` OS-level capture, OSWorld VM frames |
 | Action space | click, type, scroll, key, wait | + drag, double-click, right-click, hotkey |
 | Eval targets | Wikipedia, TodoMVC, GitHub, classifier sites | OSWorld 369-task suite |
-| Model backends | Claude, OpenAI, Ollama | + llama.cpp server (MAI-UI-8B, Qwen3-VL-8B) |
+| Model backends | Claude, OpenAI, Ollama | + llama.cpp / OpenAI-compat server (Qwen2.5-VL verified, MAI-UI-8B / Qwen3-VL targeted) |
 | Dependencies | Playwright + 5 pip packages | + mss, pyautogui, OSWorld harness |
 | Status | Frozen @ paper artifact | Active development |
 
@@ -25,12 +32,14 @@ cd deltavision-os
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 
-# 174 tests (7 of which need a real display, skip on CI)
+# 238 tests (9 need a real display; those skip on CI)
 pytest tests/ -q
 
 # Live desktop benchmark (pure CV, no model needed)
 python benchmarks/desktop_idle_observe.py --rounds 5 --interval 0.5
 ```
+
+See [TESTS.md](TESTS.md) for a full breakdown of what each test covers.
 
 Expected benchmark output on a quiet desktop:
 
@@ -60,9 +69,9 @@ python main.py --task "observe desktop" --platform os --backend scripted --max-s
 export ANTHROPIC_API_KEY=sk-...
 python main.py --task "..." --platform os --backend claude --safety strict --max-steps 10
 
-# llama.cpp server (Tailscale-friendly)
+# Local VLM over an OpenAI-compatible endpoint (llama.cpp / vLLM / SGLang / Ollama via tunnel)
 python main.py --task "..." --platform os --backend llamacpp \
-    --host 100.70.57.66 --port 8080 --model qwen3-vl-8b
+    --host 127.0.0.1 --port 11434 --model qwen2.5vl:7b
 
 # Ablation: force full-frame (disable delta gating)
 python main.py --task "..." --platform os --backend claude --force-full-frame
@@ -93,9 +102,9 @@ deltavision-os/
 ├── safety.py         # Model-agnostic action validation
 ├── config.py         # All thresholds, validated at construction
 ├── results/          # SQLite result store
-├── benchmarks/       # desktop_idle_observe.py and future additions
+├── benchmarks/       # desktop_idle_observe, pipeline_perf, classifier_sensitivity, record_live_demo
 ├── main.py           # CLI entrypoint
-└── tests/            # 174 passing (165 offline, 9 need display)
+└── tests/            # 238 passing (229 offline, 9 need display)
 ```
 
 ## Shared concept with V1
@@ -114,14 +123,16 @@ The **platform abstraction** is new. V1 had three Playwright-specific callsites 
 - [x] 10 action types including DRAG with x2/y2
 - [x] Safety layer (credential / URL / action limits)
 - [x] Model backends: Claude, OpenAI, Ollama, llama.cpp server, scripted
-- [x] 174 passing tests
+- [x] 238 passing tests
 - [x] Live desktop benchmark proves CV pipeline works without browser
+- [x] **First real V2 E2E**: Qwen2.5-VL on remote RTX 5080 via SSH tunnel, 5-step Mac-desktop run with 56% hypothetical token savings ([`benchmarks/v2_live_demo.mp4`](benchmarks/v2_live_demo.mp4))
+- [x] Classifier sensitivity sweep (synthetic damage 0%→99%) confirms pHash is the first layer to fire on real transitions
 
 ## What's next
 
 - [ ] OSWorld VM integration (needs OSWorld env install)
 - [ ] First V1 benchmark port (run_ablation.py equivalent with OS-native driver)
-- [ ] llama.cpp server on GPU machine, real end-to-end with MAI-UI-8B / Qwen3-VL-8B
+- [ ] Production VLM endpoint with MAI-UI-8B / Qwen3-VL-8B on the 5080 box (Qwen2.5-VL is the current stand-in)
 - [ ] Migration of V1 paper section 5 (OS-level experiments)
 
 ## License
