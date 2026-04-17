@@ -162,11 +162,11 @@ def render_step_frame(step_dir: Path, step_num: int, total_steps: int,
     hx1, hy1, hx2, hy2 = HEADER
     draw.rectangle([hx1, hy1, hx2, hy2], fill=HEADER_BG)
     draw.text((20, 12), f"DeltaVision-OS live run", font=F_BIG, fill=WHITE)
-    draw.text((20, 48), f"Step {step_num}/{total_steps}   •   Task: {task[:85]}{'…' if len(task) > 85 else ''}",
+    draw.text((20, 48), f"Step {step_num}/{total_steps}   |   Task: {task[:85]}{'...' if len(task) > 85 else ''}",
               font=F_SM, fill=(220, 230, 255))
     # Running totals (right-aligned)
     savings = 100 * (1 - running_tokens_dv / running_tokens_ff) if running_tokens_ff else 0
-    tok_line = f"Tokens cumulative:  DV {running_tokens_dv:,}   FF {running_tokens_ff:,}   →   {savings:+.0f}% saved"
+    tok_line = f"Tokens cumulative:  DV {running_tokens_dv:,}   FF {running_tokens_ff:,}   ->   {savings:+.0f}% saved"
     tb = draw.textbbox((0, 0), tok_line, font=F_SM)
     draw.text((W - (tb[2] - tb[0]) - 20, 48), tok_line, font=F_SM, fill=WHITE)
 
@@ -262,13 +262,13 @@ def render_intro(task: str) -> Image.Image:
         "",
         "Pipeline:",
         "  Mac desktop (mss capture)",
-        "  ↓",
+        "  |",
         "  DeltaVision CV classifier (41.6ms median, 4 layers)",
-        "  ↓  (delta path sends thumbnail + crops)",
+        "  |  (delta path sends thumbnail + crops)",
         "  Tailscale SSH tunnel",
-        "  ↓",
+        "  |",
         "  Windows RTX 5080 (Ollama / Qwen2.5-VL-7B Q4_K_M)",
-        "  ↓",
+        "  |",
         "  JSON action response",
         "",
         f"Task: {task}",
@@ -277,9 +277,9 @@ def render_intro(task: str) -> Image.Image:
     ]
     y = 310
     for line in lines:
-        if line.startswith("  ↓"):
+        if line.startswith("  |"):
             draw.text((W//2, y), line, font=F_MED, fill=DIM, anchor="mm")
-        elif line.startswith("  ") and not line.startswith("  ↓"):
+        elif line.startswith("  ") and not line.startswith("  |"):
             draw.text((W//2, y), line, font=F_MED, fill=GRAY, anchor="mm")
         elif line.startswith("Task:"):
             draw.text((W//2, y), line, font=F_MED, fill=YELLOW, anchor="mm")
@@ -310,16 +310,16 @@ def render_outro(total_tokens_dv: int, total_tokens_ff: int, n_steps: int) -> Im
     draw.text((W//2, y), f"DeltaVision actual:   {total_tokens_dv:,} image tokens",
               font=F_BIG, fill=GREEN, anchor="mm")
     y += 80
-    draw.text((W//2, y), f"→ {pct:.0f}% tokens saved  ({saved:,} fewer)",
+    draw.text((W//2, y), f"-> {pct:.0f}% tokens saved  ({saved:,} fewer)",
               font=F_HUGE, fill=YELLOW, anchor="mm")
 
     y += 100
     notes = [
         "This is a real run, not a simulation:",
-        "  • Real mss capture of a Mac desktop",
-        "  • Real Qwen2.5-VL-7B inference on an RTX 5080",
-        "  • Real CV pipeline — 41.6ms median overhead",
-        "  • 238 passing tests verify every component",
+        "  | Real mss capture of a Mac desktop",
+        "  | Real Qwen2.5-VL-7B inference on an RTX 5080",
+        "  | Real CV pipeline — 41.6ms median overhead",
+        "  | 238 passing tests verify every component",
     ]
     for line in notes:
         draw.text((W//2, y), line, font=F_MED,
