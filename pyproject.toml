@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deltavision-os"
+version = "0.1.0-alpha"
+description = "Delta-first computer-use agent framework for OS-level and OSWorld environments"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [{name = "David Gao"}]
+requires-python = ">=3.11"
+
+dependencies = [
+    # CV pipeline (same as V1)
+    "opencv-python>=4.9.0",
+    "Pillow>=10.0.0",
+    "numpy>=1.24.0",
+    "imagehash>=4.3.1",
+
+    # OS-level capture and execution
+    "mss>=9.0.0",
+    "pyautogui>=0.9.54",
+
+    # Model backends
+    "openai>=1.30.0",     # covers llama.cpp server too (same API)
+    "anthropic>=0.25.0",  # optional, only needed for Claude backend
+]
+
+[project.optional-dependencies]
+osworld = [
+    # OSWorld's own deps — pinned when we actually integrate
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+deltavision-os = "main:cli_entry"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: requires VMs or GPU servers, skipped by default",
+    "live: requires network or external services",
+]
+
+[tool.ruff]
+line-length = 100

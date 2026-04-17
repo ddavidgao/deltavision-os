@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+.DS_Store
+
+# Artifacts
+results/*.db
+frames/
+runs/
+video_frames/
+*.mp4
+*.mov
+
+# OSWorld VM stuff
+osworld_envs/
+vm_snapshots/
