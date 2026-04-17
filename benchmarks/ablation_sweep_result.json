@@ -1,0 +1,902 @@
+{
+  "thresholds": [
+    0.3,
+    0.5,
+    0.75
+  ],
+  "trajectories": {
+    "idle_only": {
+      "full_frame_reference_tokens": 17600,
+      "sweep": {
+        "0.30": {
+          "delta_tokens": 5600,
+          "new_pages": 0,
+          "savings_pct": 68.2,
+          "transitions": [
+            {
+              "step": 0,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06214598810235391,
+              "phash_distance": 4,
+              "anchor_score": 0.9999999403953552
+            },
+            {
+              "step": 1,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06455896165997779,
+              "phash_distance": 2,
+              "anchor_score": 0.9999999403953552
+            },
+            {
+              "step": 2,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06470981698118577,
+              "phash_distance": 2,
+              "anchor_score": 0.9999999403953552
+            },
+            {
+              "step": 3,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0647119517262972,
+              "phash_distance": 4,
+              "anchor_score": 0.9999999403953552
+            },
+            {
+              "step": 4,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06463438932058178,
+              "phash_distance": 4,
+              "anchor_score": 0.9999999403953552
+            },
+            {
+              "step": 5,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.11691145077277773,
+              "phash_distance": 6,
+              "anchor_score": 0.9999999403953552
+            },
+            {
+              "step": 6,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.11689864230210913,
+              "phash_distance": 6,
+              "anchor_score": 0.9999999403953552
+            },
+            {
+              "step": 7,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.11691785500811203,
+              "phash_distance": 6,
+              "anchor_score": 0.9999999403953552
+            },
+            {
+              "step": 8,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.11636566760595451,
+              "phash_distance": 6,
+              "anchor_score": 0.9999999403953552
+            },
+            {
+              "step": 9,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06520863575555745,
+              "phash_distance": 6,
+              "anchor_score": 0.9999999403953552
+            }
+          ]
+        },
+        "0.50": {
+          "delta_tokens": 5600,
+          "new_pages": 0,
+          "savings_pct": 68.2,
+          "transitions": [
+            {
+              "step": 0,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.05767796658412319,
+              "phash_distance": 4,
+              "anchor_score": 0.9999964833259583
+            },
+            {
+              "step": 1,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06856587823413884,
+              "phash_distance": 6,
+              "anchor_score": 0.9999988675117493
+            },
+            {
+              "step": 2,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06873736942475735,
+              "phash_distance": 4,
+              "anchor_score": 0.9999986290931702
+            },
+            {
+              "step": 3,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06893661230182449,
+              "phash_distance": 6,
+              "anchor_score": 0.9999986290931702
+            },
+            {
+              "step": 4,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06886331938633194,
+              "phash_distance": 4,
+              "anchor_score": 0.9999986290931702
+            },
+            {
+              "step": 5,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.068930919648194,
+              "phash_distance": 4,
+              "anchor_score": 0.9999988675117493
+            },
+            {
+              "step": 6,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0688035465232118,
+              "phash_distance": 4,
+              "anchor_score": 0.9994679689407349
+            },
+            {
+              "step": 7,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0689238038311559,
+              "phash_distance": 4,
+              "anchor_score": 0.9994679689407349
+            },
+            {
+              "step": 8,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06889961005322631,
+              "phash_distance": 4,
+              "anchor_score": 0.9994679689407349
+            },
+            {
+              "step": 9,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06885122249736715,
+              "phash_distance": 4,
+              "anchor_score": 0.9994679689407349
+            }
+          ]
+        },
+        "0.75": {
+          "delta_tokens": 5600,
+          "new_pages": 0,
+          "savings_pct": 68.2,
+          "transitions": [
+            {
+              "step": 0,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.00032946232886460025,
+              "phash_distance": 2,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 1,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.000338001309310335,
+              "phash_distance": 2,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 2,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0649076366948453,
+              "phash_distance": 4,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 3,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.07036475678137363,
+              "phash_distance": 6,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 4,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.07204622434747958,
+              "phash_distance": 6,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 5,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.07165698915549483,
+              "phash_distance": 8,
+              "anchor_score": 0.999998927116394
+            },
+            {
+              "step": 6,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.07261762445563999,
+              "phash_distance": 6,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 7,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.07470967466484502,
+              "phash_distance": 6,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 8,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.07248171235021206,
+              "phash_distance": 4,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 9,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.06737895995218171,
+              "phash_distance": 4,
+              "anchor_score": 0.9999953508377075
+            }
+          ]
+        }
+      }
+    },
+    "spotlight_cycle": {
+      "full_frame_reference_tokens": 17600,
+      "sweep": {
+        "0.30": {
+          "delta_tokens": 5600,
+          "new_pages": 0,
+          "savings_pct": 68.2,
+          "transitions": [
+            {
+              "step": 0,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.08342085788290211,
+              "phash_distance": 10,
+              "anchor_score": 0.9999950528144836
+            },
+            {
+              "step": 1,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.08370762530953804,
+              "phash_distance": 10,
+              "anchor_score": 0.9999950528144836
+            },
+            {
+              "step": 2,
+              "action": "hotkey(cmd+space)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.08414026698545526,
+              "phash_distance": 8,
+              "anchor_score": 0.972429096698761
+            },
+            {
+              "step": 3,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.08467751117183275,
+              "phash_distance": 8,
+              "anchor_score": 0.9734652042388916
+            },
+            {
+              "step": 4,
+              "action": "key(escape)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.08506959269063274,
+              "phash_distance": 8,
+              "anchor_score": 0.9734652042388916
+            },
+            {
+              "step": 5,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.08499558819343637,
+              "phash_distance": 8,
+              "anchor_score": 0.9734652042388916
+            },
+            {
+              "step": 6,
+              "action": "hotkey(cmd+space)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.08372754959724475,
+              "phash_distance": 10,
+              "anchor_score": 0.9734652042388916
+            },
+            {
+              "step": 7,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0834073378305297,
+              "phash_distance": 10,
+              "anchor_score": 0.9734652042388916
+            },
+            {
+              "step": 8,
+              "action": "key(escape)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.08338314405260012,
+              "phash_distance": 10,
+              "anchor_score": 0.9734652042388916
+            },
+            {
+              "step": 9,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.1404014743972903,
+              "phash_distance": 10,
+              "anchor_score": 0.9734652042388916
+            }
+          ]
+        },
+        "0.50": {
+          "delta_tokens": 5600,
+          "new_pages": 0,
+          "savings_pct": 68.2,
+          "transitions": [
+            {
+              "step": 0,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0018707482993197278,
+              "phash_distance": 2,
+              "anchor_score": 0.9663317203521729
+            },
+            {
+              "step": 1,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.004253835425383543,
+              "phash_distance": 2,
+              "anchor_score": 0.9734707474708557
+            },
+            {
+              "step": 2,
+              "action": "hotkey(cmd+space)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0023894913613981155,
+              "phash_distance": 2,
+              "anchor_score": 0.97347092628479
+            },
+            {
+              "step": 3,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.00018714598810235392,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 4,
+              "action": "key(escape)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.056624114080778755,
+              "phash_distance": 6,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 5,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.05697848176927675,
+              "phash_distance": 6,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 6,
+              "action": "hotkey(cmd+space)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.05696994278883102,
+              "phash_distance": 8,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 7,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.057005521874021574,
+              "phash_distance": 8,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 8,
+              "action": "key(escape)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.05708877693336749,
+              "phash_distance": 6,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 9,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0577227962314633,
+              "phash_distance": 4,
+              "anchor_score": 0.9724346995353699
+            }
+          ]
+        },
+        "0.75": {
+          "delta_tokens": 5600,
+          "new_pages": 0,
+          "savings_pct": 68.2,
+          "transitions": [
+            {
+              "step": 0,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.000626903481057695,
+              "phash_distance": 0,
+              "anchor_score": 0.9998149275779724
+            },
+            {
+              "step": 1,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0002341103805538952,
+              "phash_distance": 0,
+              "anchor_score": 0.9998149275779724
+            },
+            {
+              "step": 2,
+              "action": "hotkey(cmd+space)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.057007656619133006,
+              "phash_distance": 4,
+              "anchor_score": 0.9998149275779724
+            },
+            {
+              "step": 3,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.05703185039706259,
+              "phash_distance": 2,
+              "anchor_score": 0.9998149275779724
+            },
+            {
+              "step": 4,
+              "action": "key(escape)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.05729086613724988,
+              "phash_distance": 4,
+              "anchor_score": 0.9961601495742798
+            },
+            {
+              "step": 5,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.05725528705205932,
+              "phash_distance": 4,
+              "anchor_score": 0.9961601495742798
+            },
+            {
+              "step": 6,
+              "action": "hotkey(cmd+space)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.05513548515640566,
+              "phash_distance": 4,
+              "anchor_score": 0.9961601495742798
+            },
+            {
+              "step": 7,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.00212051347735747,
+              "phash_distance": 4,
+              "anchor_score": 0.9607858657836914
+            },
+            {
+              "step": 8,
+              "action": "key(escape)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0013818916688014117,
+              "phash_distance": 2,
+              "anchor_score": 0.9687086343765259
+            },
+            {
+              "step": 9,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.001370506361540432,
+              "phash_distance": 2,
+              "anchor_score": 0.9687084555625916
+            }
+          ]
+        }
+      }
+    },
+    "mission_control_cycle": {
+      "full_frame_reference_tokens": 17600,
+      "sweep": {
+        "0.30": {
+          "delta_tokens": 10400,
+          "new_pages": 4,
+          "savings_pct": 40.9,
+          "transitions": [
+            {
+              "step": 0,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0013071755899012325,
+              "phash_distance": 0,
+              "anchor_score": 0.9999851584434509
+            },
+            {
+              "step": 1,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0015192269376369794,
+              "phash_distance": 0,
+              "anchor_score": 0.9999850392341614
+            },
+            {
+              "step": 2,
+              "action": "hotkey(ctrl+up)",
+              "transition": "new_page",
+              "trigger": "diff_ratio",
+              "diff_ratio": 0.6869624000227706,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 3,
+              "action": "wait(800ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.001296501864344064,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 4,
+              "action": "key(escape)",
+              "transition": "new_page",
+              "trigger": "diff_ratio",
+              "diff_ratio": 0.6866478809096861,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 5,
+              "action": "wait(800ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.00212620613098796,
+              "phash_distance": 4,
+              "anchor_score": 0.9999998807907104
+            },
+            {
+              "step": 6,
+              "action": "hotkey(ctrl+up)",
+              "transition": "new_page",
+              "trigger": "diff_ratio",
+              "diff_ratio": 0.6862479719921442,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 7,
+              "action": "wait(800ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0004981071926678622,
+              "phash_distance": 0,
+              "anchor_score": 0.9999964833259583
+            },
+            {
+              "step": 8,
+              "action": "key(escape)",
+              "transition": "new_page",
+              "trigger": "diff_ratio",
+              "diff_ratio": 0.6863362081234168,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 9,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.00017647226254518544,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            }
+          ]
+        },
+        "0.50": {
+          "delta_tokens": 10400,
+          "new_pages": 4,
+          "savings_pct": 40.9,
+          "transitions": [
+            {
+              "step": 0,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.00015512481143084848,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 1,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0006183645006119602,
+              "phash_distance": 0,
+              "anchor_score": 0.9999998807907104
+            },
+            {
+              "step": 2,
+              "action": "hotkey(ctrl+up)",
+              "transition": "new_page",
+              "trigger": "diff_ratio",
+              "diff_ratio": 0.6863362081234168,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 3,
+              "action": "wait(800ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0008375316653858196,
+              "phash_distance": 0,
+              "anchor_score": 0.9999964833259583
+            },
+            {
+              "step": 4,
+              "action": "key(escape)",
+              "transition": "new_page",
+              "trigger": "diff_ratio",
+              "diff_ratio": 0.6862557993908861,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 5,
+              "action": "wait(800ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0018116870179033958,
+              "phash_distance": 4,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 6,
+              "action": "hotkey(ctrl+up)",
+              "transition": "new_page",
+              "trigger": "diff_ratio",
+              "diff_ratio": 0.6864479264509151,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 7,
+              "action": "wait(800ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0017319898670765377,
+              "phash_distance": 2,
+              "anchor_score": 0.9999964833259583
+            },
+            {
+              "step": 8,
+              "action": "key(escape)",
+              "transition": "new_page",
+              "trigger": "diff_ratio",
+              "diff_ratio": 0.6855648535564853,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 9,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0017149119061850681,
+              "phash_distance": 0,
+              "anchor_score": 1.0
+            }
+          ]
+        },
+        "0.75": {
+          "delta_tokens": 10400,
+          "new_pages": 4,
+          "savings_pct": 40.9,
+          "transitions": [
+            {
+              "step": 0,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0013377736031651155,
+              "phash_distance": 2,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 1,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0013050408447897988,
+              "phash_distance": 2,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 2,
+              "action": "hotkey(ctrl+up)",
+              "transition": "new_page",
+              "trigger": "phash",
+              "diff_ratio": 0.6856175106025674,
+              "phash_distance": 30,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 3,
+              "action": "wait(800ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0017277203768536703,
+              "phash_distance": 0,
+              "anchor_score": 0.9999964833259583
+            },
+            {
+              "step": 4,
+              "action": "key(escape)",
+              "transition": "new_page",
+              "trigger": "phash",
+              "diff_ratio": 0.6852104858679874,
+              "phash_distance": 30,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 5,
+              "action": "wait(800ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0011164716932798224,
+              "phash_distance": 2,
+              "anchor_score": 0.9999998807907104
+            },
+            {
+              "step": 6,
+              "action": "hotkey(ctrl+up)",
+              "transition": "new_page",
+              "trigger": "phash",
+              "diff_ratio": 0.6864849286995133,
+              "phash_distance": 28,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 7,
+              "action": "wait(800ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0019682349927418667,
+              "phash_distance": 2,
+              "anchor_score": 0.9999964833259583
+            },
+            {
+              "step": 8,
+              "action": "key(escape)",
+              "transition": "new_page",
+              "trigger": "phash",
+              "diff_ratio": 0.686289955312669,
+              "phash_distance": 28,
+              "anchor_score": 1.0
+            },
+            {
+              "step": 9,
+              "action": "wait(500ms)",
+              "transition": "delta",
+              "trigger": "none",
+              "diff_ratio": 0.0009485384111803717,
+              "phash_distance": 0,
+              "anchor_score": 0.9999998807907104
+            }
+          ]
+        }
+      }
+    }
+  },
+  "constants": {
+    "TOK_FULL_FRAME": 1600,
+    "TOK_DELTA": 400
+  },
+  "wall_time_s": 155.8
+}
