@@ -1,0 +1,11 @@
+{
+  "step": 3,
+  "obs_type": "delta",
+  "transition": "delta",
+  "trigger": "none",
+  "diff_ratio": 0.021691145077277773,
+  "phash_distance": 2,
+  "anchor_score": 0.9845224618911743,
+  "estimated_tokens": 400,
+  "num_crops": 5
+}
