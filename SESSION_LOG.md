@@ -1,117 +1,104 @@
 # V2 Build Log
 
-## 2026-04-17 (autonomous loop iteration 1)
+## 2026-04-17 (autonomous loop)
 
-### Milestone: V2 runs end-to-end
+### Iteration 1 milestone: V2 runs end-to-end
 
 Starting state: scaffold only (Platform ABC, OS native stub, OSWorld stub).
-Ending state: **174 tests passing + live desktop benchmark working.**
+Ending state of iteration 1: **174 tests passing + live desktop benchmark working.**
 
-### What was built this session
+### Iteration 2 milestone: V2 is production-shaped
 
-**Ported from V1 (copied + adapted, not depended on):**
-- `vision/` — diff engine, classifier cascade, pHash, crops (dropped the Playwright-specific `capture.py`)
-- `observation/` — builder + types
-- `agent/state.py` — unchanged, already platform-agnostic
-- `config.py`, `safety.py` — unchanged
-- `model/` — base, _response_parser, scripted, openai, claude, ollama (for potential use)
-- `results/store.py` — SQLite store
+- `main.py` CLI: `--platform os|osworld`, 5 backends (scripted/llamacpp/claude/openai/ollama), safety modes, ablation flag
+- `.github/workflows/tests.yml` CI on Python 3.11/3.12/3.13
+- README quickstart with real benchmark output
+- 3 new loop integration tests: NEW_PAGE, safety block, FORCE_FULL_FRAME (177 total tests)
+- All 5 model backends converted to shared `_response_parser` (parallel with V1)
+- `pipeline_perf.py` benchmark: measures CV overhead on real Mac captures (41.6ms median — matches V1 paper's claim)
 
-**New / V2-specific:**
-- `agent/actions.py` — extended `ActionType` with `DOUBLE_CLICK`, `RIGHT_CLICK`, `DRAG` (with x2/y2), `HOTKEY`. Parser handles all new types + UI-TARS format.
-- `agent/loop.py` — platform-agnostic rewrite. Signature: `run_agent(task, model, platform, config, safety=None)`. 3 Playwright callsites replaced with `platform.*` methods.
-- `capture/os_native.py` — fleshed out with cursor_park, lazy pyautogui import, all 10 action types supported in `execute()`.
-- `model/llamacpp.py` — subclass of `OpenAIModel` with Tailscale-friendly host/port. Works against any OpenAI-compatible endpoint.
-- `benchmarks/desktop_idle_observe.py` — live proof: captures Mac desktop at 1Hz, runs classifier, reports delta ratio + hypothetical token savings.
+### Cumulative state
 
-### Tests (174 total, all passing in ~8s)
+**Tests: 177 passing in ~12s**
 
 | Module | Tests | Notes |
 |---|---|---|
 | `test_classifier.py` | 14 | All 4 cascade layers + scroll bypass |
 | `test_config.py` | 45 | Every field validator |
 | `test_diff.py` | 8 | Diff computation + bbox extraction |
-| `test_os_native_capture.py` | 7 | **V2-new:** real mss capture, sane dims, RGB, URL=None, lifecycle |
+| `test_os_native_capture.py` | 7 | mss capture sanity on real display |
 | `test_phash.py` | 4 | Hamming distance |
 | `test_response_parser.py` | 33 | JSON extraction + VLM quirks |
 | `test_results_store.py` | 19 | SQLite persistence |
-| `test_safety.py` | 37 | Includes the V1 shortener-flag bug fix regression |
-| `test_v2_loop_scripted.py` | 5 | **V2-new:** end-to-end with MockPlatform + scripted model. Covers empty script, single action, stuck streak → force refresh, URL=None handling, DRAG action |
-| `test_v2_real_capture.py` | 2 | **V2-new:** hybrid real-mss + scripted. Real pipeline on real desktop frames. |
+| `test_safety.py` | 37 | Includes V1 shortener bug regression |
+| `test_v2_loop_scripted.py` | 8 | end-to-end: empty, single, stuck, url=none, drag, new_page, safety, force_full_frame |
+| `test_v2_real_capture.py` | 2 | hybrid real-mss + scripted |
 
-### Live benchmark output
+### Live benchmark outputs
 
 ```
 $ python benchmarks/desktop_idle_observe.py --rounds 5 --interval 0.5
+... 5 DELTA classifications, 0 NEW_PAGE, diff=0.000 on quiet desktop
+Token savings: 6,000 of 8,000 (75%) if paired with VLM
+```
 
-step   1  delta     diff=0.000  phash= 0  anchor=1.00  trigger=none
-step   2  delta     diff=0.000  phash= 0  anchor=1.00  trigger=none
-step   3  delta     diff=0.000  phash= 0  anchor=1.00  trigger=none
-step   4  delta     diff=0.000  phash= 0  anchor=1.00  trigger=none
-step   5  delta     diff=0.000  phash= 0  anchor=1.00  trigger=none
+```
+$ python benchmarks/pipeline_perf.py --iterations 10
+Screen: 1470x956
 
-Observed 5 steps in 3.1s
-DELTA:     5 (100.0%)
-NEW_PAGE:  0
+stage             min      med      p95      max  (ms)
+capture          8.5    10.2    16.0    16.0
+diff             3.9     4.3    17.1    17.1
+classify        23.8    25.6   323.0   323.0
+crop             0.0     0.0     0.0     0.0
+TOTAL           37.2    41.6   352.8   352.8
 
-Token savings if paired with a VLM at 1600 tok/full_frame, ~400 tok/delta:
-  Full frame every step:  8,000 tokens
-  DeltaVision gated:      2,000 tokens (6,000 saved)
+At 42ms median, CV adds 4.2% of a 1s inference window.
+```
+
+### Full file tree
+
+```
+deltavision-os/
+├── .github/workflows/tests.yml  # CI: pytest on 3.11/3.12/3.13
+├── README.md                     # Scope, quickstart, CLI examples, benchmarks
+├── CLAUDE.md                     # Future-session instructions
+├── LICENSE, SESSION_LOG.md
+├── pyproject.toml                # deltavision-os @ 0.1.0-alpha
+├── .gitignore
+├── main.py                       # CLI entrypoint
+├── agent/
+│   ├── __init__.py
+│   ├── actions.py                # 10 action types (V1 + DRAG/HOTKEY/etc)
+│   ├── loop.py                   # Platform-agnostic
+│   └── state.py
+├── capture/
+│   ├── __init__.py
+│   ├── base.py                   # Platform ABC
+│   ├── os_native.py              # mss + pyautogui
+│   └── osworld.py                # Stub
+├── config.py, safety.py
+├── vision/                       # CV pipeline (V1 port, platform-agnostic)
+│   └── diff/classifier/phash/crops
+├── observation/                  # FullFrame + Delta types
+├── model/
+│   ├── base.py, _response_parser.py (shared)
+│   ├── scripted.py, llamacpp.py  (V2 additions)
+│   ├── claude.py, openai.py, ollama.py, local.py  (shared with V1)
+├── results/store.py              # SQLite
+├── benchmarks/
+│   ├── desktop_idle_observe.py   # live classifier benchmark
+│   └── pipeline_perf.py          # V1-paper-style perf measurement
+└── tests/                        # 177 passing
 ```
 
 ### Attempted and parked
 
-- **Remote Ollama via Tailscale** — Windows Ollama binds only to 127.0.0.1. SSH port forward connected but API returned empty reply (Ollama needs `OLLAMA_HOST=0.0.0.0` for remote, or service restart). Parked; needs David's input or Windows-side config.
-- **llama.cpp server setup on Windows** — not installed yet. Existing models (qwen2.5vl:7b, minicpm-v, ui-tars-1.5-7b) are in Ollama, would need GGUF download for llama.cpp.
+- **Remote Ollama via Tailscale** — binds only to 127.0.0.1. SSH port forward connects but Ollama returns empty reply. Parked; needs David's Windows-side config (`OLLAMA_HOST=0.0.0.0` + restart) or llama.cpp install.
+- **Public repo sync for CI workflows** — OAuth token for public mirror lacks `workflow` scope. Worked around by adding `.github/` to `.public-exclude`. CI only runs on the private repo.
 
 ### Ready for next iteration
 
-- Hook `LlamaCppModel` up to a running server (blocked on either getting Ollama to bind externally OR standing up llama.cpp on Windows).
-- Port a real V1 benchmark (e.g., `run_ablation.py`) to V2 once a model endpoint is online.
-- OSWorld integration: implement the stub in `capture/osworld.py` when OSWorld env is installed.
-
-### File tree
-
-```
-deltavision-os/
-├── README.md            # V1 vs V2 scope table
-├── CLAUDE.md            # Project instructions for future sessions
-├── LICENSE              # MIT
-├── SESSION_LOG.md       # This file
-├── pyproject.toml
-├── .gitignore
-├── agent/
-│   ├── __init__.py
-│   ├── actions.py       # V2: +DRAG, +DOUBLE_CLICK, +RIGHT_CLICK, +HOTKEY
-│   ├── loop.py          # Platform-agnostic
-│   └── state.py
-├── capture/
-│   ├── __init__.py
-│   ├── base.py          # Platform ABC (5 methods + async context manager)
-│   ├── os_native.py     # mss + pyautogui
-│   └── osworld.py       # Stub
-├── config.py
-├── safety.py
-├── vision/              # CV pipeline (ported from V1)
-│   ├── diff.py
-│   ├── classifier.py
-│   ├── phash.py
-│   └── crops.py
-├── observation/
-│   ├── __init__.py
-│   ├── builder.py
-│   └── types.py
-├── model/
-│   ├── base.py
-│   ├── _response_parser.py
-│   ├── scripted.py      # For testing without API calls
-│   ├── llamacpp.py      # V2 new
-│   ├── openai.py
-│   ├── claude.py
-│   └── ollama.py
-├── results/
-│   └── store.py
-├── benchmarks/
-│   └── desktop_idle_observe.py   # V2 live benchmark
-└── tests/               # 174 passing
-```
+- Hook `LlamaCppModel` or `OllamaModel` up to a running server (blocked on VLM endpoint decision).
+- Port V1 ablation runner (`run_ablation.py`) to V2 now that CLI + platform + benchmarks are in place.
+- OSWorld integration: implement the stub in `capture/osworld.py`.
+- Create the GitHub remote for `deltavision-os` and push.
