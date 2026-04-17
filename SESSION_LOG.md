@@ -132,3 +132,26 @@ deltavision-os/
 - **4 benchmarks**: `desktop_idle_observe`, `pipeline_perf`, `classifier_sensitivity`, + the V1 test_integration simulated run (via ported code)
 - **14 commits** on `main` (local only, no remote yet)
 - **0 external deps blocking** V2 from shipping — the only "missing pieces" are a VLM endpoint and a GitHub remote, both gated on David's call.
+
+### Iteration 4: First real V2 run with a live VLM (2026-04-17 ~16:09)
+
+**Setup:** SSH tunnel from Mac → Windows 5080, Ollama with `qwen2.5vl:7b` (Q4_K_M).
+Explicit IPv4 binding on the tunnel (`-L 127.0.0.1:... `) fixed the earlier "Empty reply from server" issue.
+
+**Smoke test:** Sent a 64×64 red square to Qwen2.5-VL via the tunnel. Model responded "Red". Vision pipeline confirmed working.
+
+**Single-step E2E** (task: "Describe what's on screen then done=true"):
+- Captured Mac desktop (1470×956, via mss)
+- Model response: "The screen shows a coding task review and plan window with a chat message and a terminal interface."
+- Accurate description of Claude Code running in an IDE. Agent returned done=true at step 0.
+- Wall clock: 3.5s (capture + inference + parse)
+
+**Multi-step E2E** (task: 3 waits, then done=true):
+- 4 steps × wait(500ms), all classified DELTA
+- Real measured diff_ratios: **4.9%, 0.04%, 4.9%, 4.9%** (cursor + clock tick)
+- 100% delta ratio on idle desktop
+- pHash consistently 0, anchor score stable 0.98+
+- Hypothetical token savings vs full-frame: 6400 → 2800 tokens = **56% saved on 4 steps** (would grow with task length)
+- Archived as `benchmarks/first_real_v2_run.json`
+
+This is V2's first reproducible proof point with a real local VLM.
