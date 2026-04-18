@@ -172,10 +172,36 @@ Helper is in [`benchmarks/_repro.py`](benchmarks/_repro.py); all benchmark scrip
 ## What's next
 
 - [x] OSWorld platform + runner wired ([`capture/osworld.py`](capture/osworld.py), [`benchmarks/run_osworld.py`](benchmarks/run_osworld.py)). Real API (`task_config` dict, PNG-bytes obs, pyautogui-string actions). Loads `test_small.json` (39 tasks) cleanly.
-- [ ] OSWorld VM setup on Windows 5080 (Docker-KVM or VMware Workstation) — Phase 2 blocker; Mac can't host (Fusion networking broken on Apple Silicon per open issues)
-- [ ] Full agent run on OSWorld `test_small.json` with and without DeltaVision → measure token ratio + task-success delta
+- [x] **OSWorld VM running**: native Docker in WSL2 Ubuntu on the Windows 5080 box (bypassing Docker Desktop's credential store quirks). VM container exposes port 5000 (Flask), 8006 (VNC), 9222 (Chrome DevTools). Full `env.reset → env.step('WAIT') → env.evaluate()` round-trip verified on a Chrome task.
+- [ ] Full agent run on OSWorld `test_small.json` with and without DeltaVision → measure token ratio + task-success delta (Phase 3)
 - [ ] smart_resize-aware client preprocessing to close UI-TARS' ~25pp gap to published FP16 numbers
 - [ ] Migration of V1 paper section 5 (OS-level experiments)
+
+### OSWorld setup notes (WSL2 Ubuntu 24.04)
+
+The clean path on Windows is WSL2 native docker, not Docker Desktop (which silently fails from detached SSH sessions due to the `docker-credential-desktop.exe` credential store needing an interactive Windows session).
+
+```bash
+# In WSL2 Ubuntu
+git clone https://github.com/xlang-ai/OSWorld.git  # or use /mnt/c/...
+python3 -m venv oswo_venv && source oswo_venv/bin/activate
+pip install -U setuptools wheel                     # numpy~=1.24 pin in requirements.txt breaks on py3.12
+pip install numpy pillow gymnasium pyautogui requests requests-toolbelt flask \
+    psutil filelock tqdm pandas opencv-python-headless fabric playwright docker \
+    pydrive PyDrive2 rapidfuzz lxml cssselect tldextract formulas pytz pyyaml \
+    func-timeout imagehash pymupdf pdfplumber striprtf chardet mutagen ebooklib \
+    pyperclip pypdf pyacoustid music-tag lark fastdtw easyocr ag2 scikit-image \
+    scikit-learn librosa
+
+# Clear Docker config that points at Windows-side cred helper
+echo {} > ~/.docker/config.json
+
+# First DesktopEnv construction downloads Ubuntu.qcow2.zip (~11GB) and extracts (~24GB)
+python3 -c "from desktop_env.desktop_env import DesktopEnv; \
+  env = DesktopEnv(provider_name='docker', os_type='Ubuntu', \
+                   action_space='pyautogui', require_a11y_tree=False); \
+  print('ok')"
+```
 
 ## License
 
