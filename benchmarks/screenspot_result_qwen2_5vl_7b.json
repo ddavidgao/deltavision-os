@@ -1,0 +1,366 @@
+{
+  "model": "qwen2.5vl:7b",
+  "adapter": "seeclick",
+  "base_url": "http://127.0.0.1:11434/v1",
+  "per_platform_limit": 5,
+  "total_scored": 15,
+  "overall_accuracy_pct": 40.0,
+  "per_platform_accuracy_pct": {
+    "desktop": 80.0,
+    "mobile": 20.0,
+    "web": 20.0
+  },
+  "by_ui_type": {
+    "desktop_text": {
+      "n": 3,
+      "accuracy_pct": 66.67
+    },
+    "desktop_icon": {
+      "n": 2,
+      "accuracy_pct": 100.0
+    },
+    "mobile_text": {
+      "n": 2,
+      "accuracy_pct": 0.0
+    },
+    "mobile_icon": {
+      "n": 3,
+      "accuracy_pct": 33.33
+    },
+    "web_text": {
+      "n": 2,
+      "accuracy_pct": 50.0
+    },
+    "web_icon": {
+      "n": 3,
+      "accuracy_pct": 0.0
+    }
+  },
+  "wall_time_s": 63.2,
+  "results": [
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "close this window",
+      "img": "pc_ede36f9b-1154-4f76-b7f8-c15d7d3f9b6e.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        910,
+        78,
+        44,
+        34
+      ],
+      "predicted_point": [
+        948.0,
+        93.0
+      ],
+      "hit": true,
+      "raw_response": "```json\n{\"point_2d\": [948, 93]}\n```"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "minimize this window",
+      "img": "pc_5e09e8e9-7ef6-44be-ad54-aeaeac151897.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        835,
+        0,
+        36,
+        30
+      ],
+      "predicted_point": [
+        870.0,
+        13.0
+      ],
+      "hit": true,
+      "raw_response": "```json\n{\"point_2d\": [870, 13]}}\n```"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "view solitaire daily challenges",
+      "img": "pc_2c6dc6ea-fd6f-4cbb-9954-2d6a68610a48.png",
+      "img_size": [
+        1920,
+        1080
+      ],
+      "bbox_xywh": [
+        1477,
+        450,
+        184,
+        230
+      ],
+      "predicted_point": [
+        1550.0,
+        560.0
+      ],
+      "hit": true,
+      "raw_response": "```json\n{\"point_2d\": [1550, 560]}\n```"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "open the Microsoft store",
+      "img": "pc_b072d03a-51cb-4dd6-bdeb-152d3fd44e6b.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        176,
+        202,
+        99,
+        101
+      ],
+      "predicted_point": [
+        230.0,
+        262.0
+      ],
+      "hit": true,
+      "raw_response": "```json\n{\"point_2d\": [230, 262]}\n```"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "adjust the style",
+      "img": "pc_ac2d2c5e-fe5a-4233-95b4-2de18ef76a9e.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        635,
+        360,
+        42,
+        63
+      ],
+      "predicted_point": [
+        500.0,
+        374.0
+      ],
+      "hit": false,
+      "raw_response": "```json\n{\"point_2d\": [500, 374]}\n```"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "check the weather",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        223,
+        78,
+        601,
+        593
+      ],
+      "predicted_point": [
+        372.0,
+        272.0
+      ],
+      "hit": true,
+      "raw_response": "```json\n{\"point_2d\": [372, 272]}\n```"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "view world clock",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        879,
+        75,
+        599,
+        269
+      ],
+      "predicted_point": [
+        878.0,
+        151.0
+      ],
+      "hit": false,
+      "raw_response": "```json\n{\"point_2d\": [878, 151]}\n```"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "open facetime app",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        618,
+        808,
+        130,
+        158
+      ],
+      "predicted_point": [
+        506.0,
+        648.0
+      ],
+      "hit": false,
+      "raw_response": "```json\n{\"point_2d\": [506, 648]}\n```"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "open the camera",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1936,
+        806,
+        120,
+        166
+      ],
+      "predicted_point": [
+        1476.0,
+        637.0
+      ],
+      "hit": false,
+      "raw_response": "```json\n{\"point_2d\": [1476, 637]}\n```"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "view the menu",
+      "img": "mobile_6949b916-64c8-431f-8842-a29a9a557641.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        40,
+        64,
+        80,
+        66
+      ],
+      "predicted_point": null,
+      "hit": false,
+      "raw_response": "There is no element in the screenshot corresponding to the command \"view the menu\". The screenshot shows a text input field and language selection options, but no menu or menu icon is visible. Therefore, no JSON point can be provided for this command."
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "click the button to create a new project",
+      "img": "web_213f816e-8e80-4d13-970d-1347bbc7a2a8.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2321,
+        129,
+        208,
+        70
+      ],
+      "predicted_point": [
+        1812.0,
+        122.0
+      ],
+      "hit": false,
+      "raw_response": "```json\n{\"point_2d\": [1812, 122]}\n```"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "view my account profile",
+      "img": "web_213f816e-8e80-4d13-970d-1347bbc7a2a8.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2401,
+        14,
+        111,
+        68
+      ],
+      "predicted_point": [
+        200.0,
+        35.0
+      ],
+      "hit": false,
+      "raw_response": "```json\n{\"point_2d\": [200, 35]}}\n```"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "search in gitlab",
+      "img": "web_e40f1b3f-0f26-4313-a6a2-d79e1047951b.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        194,
+        15,
+        645,
+        66
+      ],
+      "predicted_point": [
+        358.0,
+        34.0
+      ],
+      "hit": true,
+      "raw_response": "```json\n{\"point_2d\": [358, 34] }\n```"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "add a new one",
+      "img": "web_e40f1b3f-0f26-4313-a6a2-d79e1047951b.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        1762,
+        10,
+        87,
+        72
+      ],
+      "predicted_point": null,
+      "hit": false,
+      "raw_response": "There is no element in the screenshot corresponding to the command \"add a new one\". The screenshot shows a To-Do List in GitLab with various tasks and filters, but there is no visible button or link for adding a new task."
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "go to personal homepage",
+      "img": "web_fd8d71f6-4229-4458-a77e-7d8a6347c8e9.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2044,
+        96,
+        481,
+        187
+      ],
+      "predicted_point": [
+        1700.0,
+        267.0
+      ],
+      "hit": false,
+      "raw_response": "```json\n{\"point_2d\": [1700, 267]}\n```"
+    }
+  ]
+}
