@@ -1,0 +1,2022 @@
+{
+  "model": "claude-sonnet-4-6-subagent",
+  "adapter": "subagent-vision",
+  "base_url": "n/a (Claude Code subagent)",
+  "per_platform_limit": 30,
+  "total_scored": 90,
+  "overall_accuracy_pct": 18.89,
+  "per_platform_accuracy_pct": {
+    "desktop": 53.33,
+    "mobile": 0.0,
+    "web": 3.33
+  },
+  "by_ui_type": {
+    "desktop_text": {
+      "n": 12,
+      "accuracy_pct": 58.33
+    },
+    "desktop_icon": {
+      "n": 18,
+      "accuracy_pct": 50.0
+    },
+    "mobile_text": {
+      "n": 12,
+      "accuracy_pct": 0.0
+    },
+    "mobile_icon": {
+      "n": 18,
+      "accuracy_pct": 0.0
+    },
+    "web_text": {
+      "n": 13,
+      "accuracy_pct": 0.0
+    },
+    "web_icon": {
+      "n": 17,
+      "accuracy_pct": 5.88
+    }
+  },
+  "wall_time_s": 0,
+  "results": [
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "close this window",
+      "img": "pc_ede36f9b-1154-4f76-b7f8-c15d7d3f9b6e.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        910,
+        78,
+        44,
+        34
+      ],
+      "predicted_point": [
+        930,
+        94
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "minimize this window",
+      "img": "pc_5e09e8e9-7ef6-44be-ad54-aeaeac151897.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        835,
+        0,
+        36,
+        30
+      ],
+      "predicted_point": [
+        635,
+        8
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "view solitaire daily challenges",
+      "img": "pc_2c6dc6ea-fd6f-4cbb-9954-2d6a68610a48.png",
+      "img_size": [
+        1920,
+        1080
+      ],
+      "bbox_xywh": [
+        1477,
+        450,
+        184,
+        230
+      ],
+      "predicted_point": [
+        561,
+        120
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "open the Microsoft store",
+      "img": "pc_b072d03a-51cb-4dd6-bdeb-152d3fd44e6b.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        176,
+        202,
+        99,
+        101
+      ],
+      "predicted_point": [
+        156,
+        103
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "adjust the style",
+      "img": "pc_ac2d2c5e-fe5a-4233-95b4-2de18ef76a9e.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        635,
+        360,
+        42,
+        63
+      ],
+      "predicted_point": [
+        659,
+        390
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "minimize calculator",
+      "img": "pc_f0122b91-3f8b-4510-9a6e-f0239d84b94e.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        697,
+        63,
+        34,
+        32
+      ],
+      "predicted_point": [
+        714,
+        79
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "open the download page",
+      "img": "pc_354a6cb2-3fe0-4cea-950c-d7f8e01fdf45.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        843,
+        7,
+        48,
+        39
+      ],
+      "predicted_point": [
+        868,
+        27
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "open the help menu",
+      "img": "pc_d6b09201-c944-4ad9-a0a2-ff78e8f056ce.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        1,
+        434,
+        67,
+        66
+      ],
+      "predicted_point": [
+        27,
+        353
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "save the file",
+      "img": "pc_db6b6fa2-11cc-4b06-88cb-22c180f07a3b.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        9,
+        0,
+        35,
+        31
+      ],
+      "predicted_point": [
+        29,
+        17
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "search for software ",
+      "img": "pc_6dfa677c-7772-46fb-8c83-14a33b0806b4.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        316,
+        0,
+        601,
+        38
+      ],
+      "predicted_point": [
+        288,
+        7
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "check the weather",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        223,
+        78,
+        601,
+        593
+      ],
+      "predicted_point": [
+        72,
+        100
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "view world clock",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        879,
+        75,
+        599,
+        269
+      ],
+      "predicted_point": [
+        295,
+        40
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "open facetime app",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        618,
+        808,
+        130,
+        158
+      ],
+      "predicted_point": [
+        170,
+        250
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "open the camera",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1936,
+        806,
+        120,
+        166
+      ],
+      "predicted_point": [
+        545,
+        250
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "view the menu",
+      "img": "mobile_6949b916-64c8-431f-8842-a29a9a557641.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        40,
+        64,
+        80,
+        66
+      ],
+      "predicted_point": [
+        40,
+        48
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "select source language",
+      "img": "mobile_6949b916-64c8-431f-8842-a29a9a557641.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1077,
+        78,
+        92,
+        115
+      ],
+      "predicted_point": [
+        425,
+        65
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "close the translation",
+      "img": "mobile_6949b916-64c8-431f-8842-a29a9a557641.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1733,
+        230,
+        95,
+        100
+      ],
+      "predicted_point": [
+        891,
+        140
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "translate the input sentence",
+      "img": "mobile_702eab66-81f1-4aac-a252-37b5f7c3ae68.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1681,
+        1407,
+        103,
+        103
+      ],
+      "predicted_point": [
+        866,
+        730
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "add a new file",
+      "img": "mobile_a1366f87-f1f1-402c-911a-d239eb60eac8.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        29,
+        365,
+        72,
+        77
+      ],
+      "predicted_point": [
+        15,
+        100
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "click the search bar",
+      "img": "mobile_a1366f87-f1f1-402c-911a-d239eb60eac8.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        825,
+        72,
+        848,
+        77
+      ],
+      "predicted_point": [
+        310,
+        27
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "click the button to create a new project",
+      "img": "web_213f816e-8e80-4d13-970d-1347bbc7a2a8.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2321,
+        129,
+        208,
+        70
+      ],
+      "predicted_point": [
+        605,
+        40
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "view my account profile",
+      "img": "web_213f816e-8e80-4d13-970d-1347bbc7a2a8.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2401,
+        14,
+        111,
+        68
+      ],
+      "predicted_point": [
+        609,
+        11
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "search in gitlab",
+      "img": "web_e40f1b3f-0f26-4313-a6a2-d79e1047951b.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        194,
+        15,
+        645,
+        66
+      ],
+      "predicted_point": [
+        131,
+        11
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "add a new one",
+      "img": "web_e40f1b3f-0f26-4313-a6a2-d79e1047951b.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        1762,
+        10,
+        87,
+        72
+      ],
+      "predicted_point": [
+        452,
+        11
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "go to personal homepage",
+      "img": "web_fd8d71f6-4229-4458-a77e-7d8a6347c8e9.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2044,
+        96,
+        481,
+        187
+      ],
+      "predicted_point": [
+        13,
+        11
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "sign out",
+      "img": "web_fd8d71f6-4229-4458-a77e-7d8a6347c8e9.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2043,
+        492,
+        483,
+        89
+      ],
+      "predicted_point": [
+        534,
+        133
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "switch to explore projects",
+      "img": "web_4e1d5837-4731-43f3-8101-52375498c4ad.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        427,
+        234,
+        150,
+        96
+      ],
+      "predicted_point": [
+        148,
+        55
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "star the project with 56 stars",
+      "img": "web_4e1d5837-4731-43f3-8101-52375498c4ad.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        1601,
+        350,
+        116,
+        66
+      ],
+      "predicted_point": [
+        421,
+        95
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "fork the a11y project",
+      "img": "web_4e1d5837-4731-43f3-8101-52375498c4ad.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        1704,
+        678,
+        83,
+        59
+      ],
+      "predicted_point": [
+        448,
+        165
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "view issues i've created",
+      "img": "web_bcce7aec-b36a-42c5-8beb-ead23f5ada2c.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        197,
+        232,
+        1279,
+        68
+      ],
+      "predicted_point": [
+        94,
+        65
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "add this page to favourites",
+      "img": "pc_bc9ed2f6-79c1-4a35-bcb5-4760bf4ed57d.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        880,
+        6,
+        36,
+        31
+      ],
+      "predicted_point": [
+        733,
+        15
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "choose language for windows",
+      "img": "pc_2c56f301-8e71-4498-8e52-44b37ac1a298.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        458,
+        133,
+        452,
+        36
+      ],
+      "predicted_point": [
+        193,
+        33
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "input method toolbar",
+      "img": "pc_e618dc7e-8ffb-4a37-a317-9d3908c38395.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        883,
+        496,
+        62,
+        44
+      ],
+      "predicted_point": [
+        448,
+        517
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "access the personal account interface",
+      "img": "pc_54779155-8627-4cac-8ea6-98277cfe0647.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        778,
+        4,
+        38,
+        41
+      ],
+      "predicted_point": [
+        395,
+        12
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "network and internet settings",
+      "img": "pc_ad16765f-de52-4903-b406-fb5213b94db9.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        924,
+        496,
+        33,
+        44
+      ],
+      "predicted_point": [
+        440,
+        503
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "open a new tab",
+      "img": "pc_1ebb6beb-3187-45a6-a5a6-e50aa9a327e5.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        813,
+        0,
+        34,
+        32
+      ],
+      "predicted_point": [
+        828,
+        16
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "click the file processing menu",
+      "img": "pc_221d3c5a-0a1b-456e-9676-7b5ff95cc1b1.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        10,
+        84,
+        50,
+        39
+      ],
+      "predicted_point": [
+        35,
+        103
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "open settings",
+      "img": "pc_a8b0f843-7aaf-4369-ac2b-a121f1ccb024.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        1,
+        30,
+        41,
+        39
+      ],
+      "predicted_point": [
+        23,
+        50
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "open the music library",
+      "img": "pc_7f0b3e40-e5f5-462b-96c3-e8a97a3a504b.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        2,
+        48,
+        319,
+        40
+      ],
+      "predicted_point": [
+        88,
+        70
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "copy the file",
+      "img": "pc_8f88d498-d49a-4ab5-8aa6-aafa1428c3b7.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        177,
+        69,
+        282,
+        28
+      ],
+      "predicted_point": [
+        228,
+        82
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "view the settings in this app",
+      "img": "mobile_a1366f87-f1f1-402c-911a-d239eb60eac8.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        23,
+        1507,
+        80,
+        77
+      ],
+      "predicted_point": [
+        15,
+        360
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "check shared files",
+      "img": "mobile_a1366f87-f1f1-402c-911a-d239eb60eac8.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        312,
+        198,
+        129,
+        129
+      ],
+      "predicted_point": [
+        92,
+        68
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "add an event",
+      "img": "mobile_c71efbd9-cd10-4564-949e-50b3b034328a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        341,
+        70,
+        72,
+        69
+      ],
+      "predicted_point": [
+        95,
+        25
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "search event",
+      "img": "mobile_c71efbd9-cd10-4564-949e-50b3b034328a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1873,
+        61,
+        453,
+        80
+      ],
+      "predicted_point": [
+        505,
+        25
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "view as year",
+      "img": "mobile_c71efbd9-cd10-4564-949e-50b3b034328a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1326,
+        67,
+        158,
+        69
+      ],
+      "predicted_point": [
+        359,
+        25
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "the fifth in this month",
+      "img": "mobile_c71efbd9-cd10-4564-949e-50b3b034328a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        676,
+        631,
+        337,
+        281
+      ],
+      "predicted_point": [
+        245,
+        162
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "click to lock rotation",
+      "img": "mobile_1c1d54b4-5ac1-40cd-9dc6-21a8d3c97d6e.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1678,
+        436,
+        140,
+        137
+      ],
+      "predicted_point": [
+        444,
+        128
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "close do not disturb",
+      "img": "mobile_1c1d54b4-5ac1-40cd-9dc6-21a8d3c97d6e.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1675,
+        585,
+        295,
+        143
+      ],
+      "predicted_point": [
+        444,
+        158
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "adjust the voice",
+      "img": "mobile_1c1d54b4-5ac1-40cd-9dc6-21a8d3c97d6e.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        2134,
+        439,
+        140,
+        286
+      ],
+      "predicted_point": [
+        554,
+        158
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "open the timer",
+      "img": "mobile_1c1d54b4-5ac1-40cd-9dc6-21a8d3c97d6e.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1835,
+        1046,
+        132,
+        135
+      ],
+      "predicted_point": [
+        469,
+        308
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "goto homepage",
+      "img": "web_bcce7aec-b36a-42c5-8beb-ead23f5ada2c.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        0,
+        0,
+        107,
+        94
+      ],
+      "predicted_point": [
+        15,
+        12
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "set reminder",
+      "img": "web_7a5f6ad5-ec34-4693-ac45-136547757893.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        1883,
+        451,
+        119,
+        71
+      ],
+      "predicted_point": [
+        484,
+        120
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "clone this project",
+      "img": "web_7a5f6ad5-ec34-4693-ac45-136547757893.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2330,
+        959,
+        167,
+        70
+      ],
+      "predicted_point": [
+        591,
+        247
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "create a new issue",
+      "img": "web_e0f18fd6-2a59-4fab-89f0-864c70bba241.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2344,
+        204,
+        190,
+        70
+      ],
+      "predicted_point": [
+        609,
+        58
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "download",
+      "img": "web_e0f18fd6-2a59-4fab-89f0-864c70bba241.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2018,
+        202,
+        111,
+        67
+      ],
+      "predicted_point": [
+        511,
+        58
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "search or filter results",
+      "img": "web_e0f18fd6-2a59-4fab-89f0-864c70bba241.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        677,
+        319,
+        1481,
+        66
+      ],
+      "predicted_point": [
+        340,
+        87
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "choose type of issue",
+      "img": "web_6c677961-e540-4cc5-b725-5e301019a9f9.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        537,
+        606,
+        509,
+        77
+      ],
+      "predicted_point": [
+        197,
+        160
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "bold lettering",
+      "img": "web_6c677961-e540-4cc5-b725-5e301019a9f9.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        1566,
+        775,
+        74,
+        68
+      ],
+      "predicted_point": [
+        399,
+        203
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "full screen display",
+      "img": "web_6c677961-e540-4cc5-b725-5e301019a9f9.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2429,
+        778,
+        74,
+        66
+      ],
+      "predicted_point": [
+        619,
+        203
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "insert tables",
+      "img": "web_6c677961-e540-4cc5-b725-5e301019a9f9.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2282,
+        775,
+        75,
+        68
+      ],
+      "predicted_point": [
+        579,
+        203
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "check the date and time menu",
+      "img": "pc_870d6da1-bc85-4e74-a1bd-ef6f975c2146.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        855,
+        495,
+        76,
+        45
+      ],
+      "predicted_point": [
+        718,
+        468
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "open the sleep mode",
+      "img": "pc_45c2712a-337d-4b6b-a47b-37ca4d5bdddd.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        0,
+        354,
+        260,
+        42
+      ],
+      "predicted_point": [
+        48,
+        428
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "search for local files",
+      "img": "pc_133ac2cd-3eb3-4d45-be35-255a83831f97.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        607,
+        8,
+        349,
+        36
+      ],
+      "predicted_point": [
+        785,
+        27
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "view the personal account",
+      "img": "pc_bd6711e1-ddc1-4873-8cf1-19654285f4ea.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        0,
+        0,
+        40,
+        32
+      ],
+      "predicted_point": [
+        22,
+        17
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "click the \"settings and more\" button",
+      "img": "pc_83462e63-b0cd-4921-9d19-8a534ed445c7.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        916,
+        13,
+        44,
+        39
+      ],
+      "predicted_point": [
+        936,
+        33
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "full-screen display",
+      "img": "pc_2b40c066-2f8f-4389-8df8-e70e8dfc1309.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        894,
+        0,
+        66,
+        64
+      ],
+      "predicted_point": [
+        167,
+        17
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "undo",
+      "img": "pc_1f371830-d909-41ac-a340-921a594f05b0.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        2,
+        0,
+        32,
+        30
+      ],
+      "predicted_point": [
+        22,
+        15
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "Add a new shortcut to the toolbar",
+      "img": "pc_14fd6f5f-37d5-4b22-953e-626e11044f3e.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        918,
+        336,
+        41,
+        46
+      ],
+      "predicted_point": [
+        936,
+        517
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "open local disk E",
+      "img": "pc_8834317b-7d08-40f1-9036-40743aba5d70.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        204,
+        205,
+        86,
+        84
+      ],
+      "predicted_point": [
+        249,
+        253
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "create a new file",
+      "img": "pc_fa28755f-aee4-48f3-a484-02e670a6ff8f.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        537,
+        127,
+        279,
+        25
+      ],
+      "predicted_point": [
+        584,
+        138
+      ],
+      "hit": true,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "Check handwriting mode options",
+      "img": "mobile_0570bb62-77b0-4d1d-90f4-5e322c2bca17.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        2019,
+        55,
+        86,
+        83
+      ],
+      "predicted_point": [
+        623,
+        55
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "take a photo",
+      "img": "mobile_0570bb62-77b0-4d1d-90f4-5e322c2bca17.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1315,
+        67,
+        89,
+        69
+      ],
+      "predicted_point": [
+        757,
+        55
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "open the file named \"result\"",
+      "img": "mobile_4b1df148-c6ac-452a-b55d-f8e6c6dee059.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        770,
+        304,
+        192,
+        275
+      ],
+      "predicted_point": [
+        218,
+        107
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "view icloud drive",
+      "img": "mobile_4b1df148-c6ac-452a-b55d-f8e6c6dee059.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        3,
+        539,
+        630,
+        86
+      ],
+      "predicted_point": [
+        84,
+        120
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "add a new file",
+      "img": "mobile_4b1df148-c6ac-452a-b55d-f8e6c6dee059.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1469,
+        58,
+        83,
+        83
+      ],
+      "predicted_point": [
+        381,
+        24
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "search in this note",
+      "img": "mobile_a8181231-d30c-4051-9ff2-16808694adbf.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        180,
+        67,
+        77,
+        66
+      ],
+      "predicted_point": [
+        56,
+        23
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "add a new page",
+      "img": "mobile_a8181231-d30c-4051-9ff2-16808694adbf.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        2097,
+        58,
+        77,
+        77
+      ],
+      "predicted_point": [
+        563,
+        23
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "get more information",
+      "img": "mobile_a8181231-d30c-4051-9ff2-16808694adbf.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        2274,
+        58,
+        77,
+        77
+      ],
+      "predicted_point": [
+        589,
+        23
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "tap the search bar",
+      "img": "mobile_5313a7b6-4c3a-442f-a5d3-6d53fc8d3ad9.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        822,
+        67,
+        848,
+        92
+      ],
+      "predicted_point": [
+        316,
+        27
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "check the pinned files",
+      "img": "mobile_5313a7b6-4c3a-442f-a5d3-6d53fc8d3ad9.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        610,
+        198,
+        132,
+        126
+      ],
+      "predicted_point": [
+        165,
+        72
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "write a description",
+      "img": "web_6c677961-e540-4cc5-b725-5e301019a9f9.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        543,
+        853,
+        1986,
+        282
+      ],
+      "predicted_point": [
+        383,
+        249
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "click the icon to sort by created date",
+      "img": "web_9443f61f-7d14-4e60-8297-29df73b7cbdd.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2430,
+        317,
+        67,
+        68
+      ],
+      "predicted_point": [
+        614,
+        90
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "view the debug build time",
+      "img": "web_9443f61f-7d14-4e60-8297-29df73b7cbdd.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        543,
+        551,
+        1982,
+        133
+      ],
+      "predicted_point": [
+        173,
+        148
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "search my projects",
+      "img": "web_af76d21a-0a23-49c3-bc5b-842073bf28af.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        610,
+        109,
+        610,
+        68
+      ],
+      "predicted_point": [
+        230,
+        35
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "switch to activity",
+      "img": "web_af76d21a-0a23-49c3-bc5b-842073bf28af.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        118,
+        502,
+        473,
+        79
+      ],
+      "predicted_point": [
+        62,
+        136
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "delete the byte blaze assignee",
+      "img": "web_6b685114-53fc-40a1-ac42-3b8fbdd27fdd.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        782,
+        372,
+        64,
+        51
+      ],
+      "predicted_point": [
+        205,
+        99
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "subscribe to rss feed",
+      "img": "web_6b685114-53fc-40a1-ac42-3b8fbdd27fdd.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        1764,
+        246,
+        377,
+        66
+      ],
+      "predicted_point": [
+        478,
+        70
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "Click the thumbs up icon on this issue",
+      "img": "web_b97bb6a3-999c-463a-b957-5584c14c8395.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        542,
+        700,
+        107,
+        67
+      ],
+      "predicted_point": [
+        113,
+        173
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "Click the thumbs down icon on this issue",
+      "img": "web_b97bb6a3-999c-463a-b957-5584c14c8395.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        662,
+        702,
+        109,
+        64
+      ],
+      "predicted_point": [
+        143,
+        173
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "reply to emoticon",
+      "img": "web_b97bb6a3-999c-463a-b957-5584c14c8395.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        785,
+        700,
+        67,
+        68
+      ],
+      "predicted_point": [
+        190,
+        173
+      ],
+      "hit": false,
+      "raw_response": "subagent-vision"
+    }
+  ]
+}

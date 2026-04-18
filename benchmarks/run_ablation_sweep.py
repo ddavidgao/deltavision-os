@@ -155,17 +155,45 @@ async def main():
     print(f"\nTotal wall time: {elapsed:.1f}s")
 
     out = Path(__file__).parent / "ablation_sweep_result.json"
+    payload = {
+        "thresholds": DIFF_THRESHOLDS,
+        "trajectories": results,
+        "constants": {
+            "TOK_FULL_FRAME": TOK_FULL_FRAME,
+            "TOK_DELTA": TOK_DELTA,
+        },
+        "wall_time_s": round(elapsed, 1),
+    }
     with out.open("w") as f:
-        json.dump({
-            "thresholds": DIFF_THRESHOLDS,
-            "trajectories": results,
-            "constants": {
-                "TOK_FULL_FRAME": TOK_FULL_FRAME,
-                "TOK_DELTA": TOK_DELTA,
-            },
-            "wall_time_s": round(elapsed, 1),
-        }, f, indent=2)
-    print(f"Artifact: {out.relative_to(Path.cwd())}")
+        json.dump(payload, f, indent=2)
+    print(f"Artifact: {out}")
+
+    from benchmarks._repro import save_run, snapshot_context
+    config = snapshot_context({
+        "thresholds_swept": DIFF_THRESHOLDS,
+        "trajectories": list(TRAJECTORIES.keys()),
+        "platform": "os_native",
+    })
+    savings_matrix = {
+        tname: {th_str: r["savings_pct"]
+                for th_str, r in tdata["sweep"].items()}
+        for tname, tdata in results.items()
+    }
+    metrics_for_db = {
+        "savings_matrix": savings_matrix,
+        "constants": payload["constants"],
+        "wall_time_s": payload["wall_time_s"],
+    }
+    rid, run_dir = save_run(
+        benchmark="ablation_sweep",
+        backend="scripted_3traj_3thresh",
+        metrics=metrics_for_db,
+        config=config,
+        notes=("3 trajectories x 3 NEW_PAGE_DIFF_THRESHOLDS, "
+               "savings_matrix for robustness analysis"),
+        primary_artifact_path=out,
+    )
+    print(f"DB run id: {rid}    artifact dir: {run_dir}")
 
 
 if __name__ == "__main__":

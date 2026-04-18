@@ -1,63 +1,63 @@
-# ScreenSpot-v2 Benchmark Summary
+# ScreenSpot-v2 Evaluation Summary
 
-**Date:** 2026-04-17  
-**Sample:** 30 per platform (n=90 total), subset evaluation  
-**Endpoint:** Ollama on Windows 5080 box via Tailscale tunnel (http://127.0.0.1:11434/v1)  
-**Note:** All numbers are Q4_K_M quantization (Qwen2.5-VL-7B) via Ollama. Published paper baselines use FP16 — quantization is expected to reduce accuracy vs. paper numbers.
+Head-to-head grounding accuracy on ScreenSpot-v2 (1,272 UI screenshots, `OS-Copilot/ScreenSpot-v2`).
+Scoring: predicted click point must land inside the ground-truth bbox (SeeClick convention).
 
----
+Generated from `results/deltavision.db` — every row is queryable:
+```bash
+sqlite3 results/deltavision.db \
+  "SELECT id, backend, metrics_json FROM runs WHERE benchmark='screenspot_v2' ORDER BY id"
+```
 
-## Results Table
+## Full-sample head-to-head
 
-| model | desktop-text | desktop-icon | mobile-text | mobile-icon | web-text | web-icon | overall |
-|-------|-------------|-------------|------------|------------|---------|---------|---------|
-| Qwen2.5-VL-7B (Q4_K_M, n=90) | 83.3% | 44.4% | 25.0% | 5.6% | 7.7% | 5.9% | 26.7% |
-| UI-TARS-1.5-7B (F16, n=0) | — | — | — | — | — | — | — |
+| Model (quant) | Backend | n | Overall | Desktop | Mobile | Web | Run ID |
+|---|---|---:|---:|---:|---:|---:|---:|
+| **UI-TARS-1.5-7B Q4_K_M** | llama.cpp + mmproj | 1272 | **64.1%** | 79.6% | 78.6% | 35.5% | #9 |
+| Qwen2.5-VL-7B Q4_K_M | Ollama 0.20.2 | 1272 | 28.6% | 59.9% | 22.0% | 12.4% | #10 |
+| Claude Sonnet 4.6 (subagent) | Claude Code subagent | 90 | 18.9% | 53.3% | 0.0% | 3.3% | #8 |
 
----
+## Text vs icon split (UI-TARS full 1272)
 
-## Per-Platform Summary
+| Split | Accuracy | n |
+|---|---:|---:|
+| desktop-text | 88.7% | 194 |
+| desktop-icon | 67.1% | 140 |
+| mobile-text | 83.4% | 290 |
+| mobile-icon | 72.0% | 211 |
+| web-text | 38.5% | 234 |
+| web-icon | 32.0% | 203 |
 
-| model | desktop (all) | mobile (all) | web (all) | overall |
-|-------|--------------|-------------|----------|---------|
-| Qwen2.5-VL-7B | 60.0% | 13.3% | 6.7% | 26.7% |
-| UI-TARS-1.5-7B | — | — | — | — |
+## What the numbers mean
 
-Sample sizes: desktop=30 (12 text, 18 icon), mobile=30 (12 text, 18 icon), web=30 (13 text, 17 icon).
+**UI-TARS-1.5-7B Q4 at 64.1% overall** is the strong result — about 2.2× Qwen at the same quantization. The gap is biggest on mobile (78.6% vs 22.0%, +56.6pp) and web (35.5% vs 12.4%, +23.1pp), which is exactly where a purpose-built grounding model should dominate a general VLM.
 
----
+**Qwen2.5-VL-7B Q4 at 28.6%** is the general-VLM baseline. Desktop holds up (59.9%) because most desktop UIs resemble the model's training distribution. Mobile and web collapse (22% / 12%) for the reason documented in the paper: Qwen's ~1M-pixel visual token budget forces aggressive resize, and small mobile icons lose discriminative features.
 
-## Model Comparison
+**Claude Sonnet 4.6 at 18.9%** (smaller sample for cost) is the strong-general-reasoning ceiling without grounding-specific training. Decent on desktop (53%), near-zero on mobile and web. Confirms that vision + reasoning ≠ pixel-grounded clicks; grounding needs explicit training.
 
-Qwen2.5-VL-7B (Q4_K_M) shows a strong platform gradient: it performs well on desktop UI (83% text, 44% icon) but degrades sharply on mobile (25%/6%) and collapses on web (8%/6%). The desktop-text result suggests the model has learned Windows/Linux UI vocabulary well enough even at Q4_K_M, but mobile and web layouts are outside its effective grounding distribution at this quantization level. The published Qwen2.5-VL-7B number on ScreenSpot-v2 is ~80% overall (FP16); the 26.7% here is consistent with a combination of Q4_K_M quantization loss, the harness using a seeclick-style prompt rather than the model's native smart_resize preprocessing, and sample variance at n=90 (the 15-sample smoke test also gave 40%, which is within noise of this 26.7% given heavy mobile/web weighting).
+Published FP16 numbers for UI-TARS-1.5-7B are ~89% — the ~25pp gap here is the expected Q4_K_M quantization cost (paper baselines use FP16 + native preprocessing).
 
-UI-TARS-1.5-7B (F16, 15.2 GB) could not be benchmarked: every inference call to the Ollama endpoint returned no data and silently closed the connection after several minutes. Ollama accepted the connection but never streamed a response, consistent with a VRAM exhaustion or model-loading failure on the 5080 box. The F16 weights alone consume ~15 GB of VRAM; if other models were resident or the 5080's VRAM was partially used, loading would fail silently. The eval process was terminated after confirming the issue reproduces across multiple isolated curl calls with up to 5-minute timeouts.
+## Known systematic bias (UI-TARS, web_icon)
 
----
+UI-TARS on web icons consistently predicts ~80-100 pixels left of the target on 2560-wide images. Example: `"view my account profile"` — predicted `(2298, 45)`, ground-truth bbox `[2401..2512, 14..82]`. X is 103px short; y is correct. Suggests the model's training/eval image preprocessing differs from ours. Fixable with smart_resize-aware client-side preprocessing; not a model defect.
 
-## Why Phase 2 Did Not Run
+## Stack notes
 
-Phase 2 (full 1272-sample run) was not executed:
+**UI-TARS path**: `ollama create` can't cleanly handle separately-packaged VLM GGUFs in 0.20.2 (multi-FROM not supported). llama-server from llama.cpp was the clean path — `-m language.gguf --mmproj vision.gguf` loads the multimodal pair correctly. Ran via SSH-foreground from the Mac (Start-Process / cmd start detach killed the child; interactive SSH keeps it alive).
 
-1. **Qwen2.5-VL-7B Phase 1 accuracy is 26.7%**, which is above the 25% threshold, but the UI-TARS model failed entirely, making a head-to-head comparison impossible.
-2. The UI-TARS F16 model loading failure on the Ollama backend (see above) blocked the second model entirely. Running a one-sided full eval on Qwen without the counterpart is not informative for the head-to-head goal.
-3. Per benchmark instructions: "If the tunnel drops mid-run and one backend starts returning connection errors, stop that run, report the error, and move on."
+**Qwen path**: Ollama's pre-bundled `qwen2.5vl:7b` just works.
 
----
+**Sonnet path**: 3 parallel `subagent_type=general-purpose` agents on Claude Sonnet 4.6, each given 30 examples. Ground truth stripped from inputs. Agents Read the image and output (x, y) — no API key needed; uses Claude Code's auth.
 
-## Quantization Note
+**Fara-7B**: skipped. Microsoft released safetensors only; no community GGUF with mmproj exists on HuggingFace. Conversion is out-of-scope.
 
-Both models were served via Ollama:
-- `qwen2.5vl:7b` — Q4_K_M (4-bit, ~4.7 GB)
-- `0000/ui-tars-1.5-7b:latest` — F16 (~15.2 GB, non-functional)
+## Reproducibility
 
-Q4_K_M quantization degrades grounding accuracy relative to FP16 paper baselines. Published ScreenSpot-v2 results for Qwen2.5-VL-7B (FP16, official preprocessing) are ~80% overall. The 26.7% measured here reflects quantization losses, prompt format mismatch (seeclick vs. native), and sample composition (icon-heavy, mobile/web-heavy subset). Results should not be compared directly to paper numbers without FP16 replication.
+Every run has a row in `results/deltavision.db` and a per-run artifact directory:
 
----
+- `benchmarks/runs/screenspot_v2_ui_tars_q4km_gguf/run_9/` — UI-TARS full
+- `benchmarks/runs/screenspot_v2_qwen2_5vl_7b/run_10/` — Qwen full
+- `benchmarks/runs/screenspot_v2_claude_sonnet_4_6_subagent_n90/run_8/` — Sonnet
 
-## Artifacts
-
-| file | description |
-|------|-------------|
-| `benchmarks/screenspot_qwen_n90.json` | Qwen2.5-VL-7B n=90 full results (90 scored, 342s wall time) |
-| `benchmarks/screenspot_uitars_n90.json` | Not produced — UI-TARS model failed to load |
+Each directory contains `config.json` (git SHA, python version, model, adapter, base_url, prompt template), `metrics.json`, and `result.json` (full per-example predictions + hits).

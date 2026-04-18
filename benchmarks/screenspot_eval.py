@@ -332,6 +332,29 @@ def summarize(results: list[dict], args, elapsed: float) -> dict:
         print(f"Artifact: {out.relative_to(Path.cwd())}")
     except ValueError:
         print(f"Artifact: {out}")
+
+    # Reproducibility: SQLite run row + artifact dir + config snapshot.
+    # Matches V1's discipline (results/store.py).
+    from benchmarks._repro import save_run, snapshot_context
+    metrics_for_db = {k: v for k, v in summary.items() if k != "results"}
+    config = snapshot_context({
+        "model": args.model,
+        "adapter": args.adapter,
+        "base_url": args.base_url,
+        "per_platform_limit": args.per_platform,
+        "prompt_template": PROMPT_SEECLICK if args.adapter != "ui-tars"
+                           else PROMPT_UI_TARS,
+    })
+    rid, run_dir = save_run(
+        benchmark="screenspot_v2",
+        backend=_slug(args.model),
+        metrics=metrics_for_db,
+        config=config,
+        notes=f"ScreenSpot-v2 eval, n={len(results)}, "
+              f"overall={summary['overall_accuracy_pct']}%",
+        primary_artifact_path=out,
+    )
+    print(f"DB run id: {rid}    artifact dir: {run_dir}")
     return summary
 
 

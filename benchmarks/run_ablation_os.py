@@ -132,22 +132,48 @@ async def main():
           f"({delta_run['effective_tokens']['deltas'] / max(delta_run['steps'], 1) * 100:.0f}%)")
 
     out = Path(__file__).parent / "ablation_result.json"
+    payload = {
+        "delta_gated": delta_run,
+        "forced_full_frame": full_run,
+        "comparison": {
+            "full_frame_tokens": full_tok,
+            "delta_gated_tokens": delta_tok,
+            "saved_tokens": saved,
+            "saved_pct": round(pct, 1),
+        },
+        "constants": {
+            "TOK_FULL_FRAME": TOK_FULL_FRAME,
+            "TOK_DELTA": TOK_DELTA,
+        },
+    }
     with out.open("w") as f:
-        json.dump({
-            "delta_gated": delta_run,
-            "forced_full_frame": full_run,
-            "comparison": {
-                "full_frame_tokens": full_tok,
-                "delta_gated_tokens": delta_tok,
-                "saved_tokens": saved,
-                "saved_pct": round(pct, 1),
-            },
-            "constants": {
-                "TOK_FULL_FRAME": TOK_FULL_FRAME,
-                "TOK_DELTA": TOK_DELTA,
-            },
-        }, f, indent=2)
-    print(f"\nArtifact: {out.relative_to(Path.cwd())}")
+        json.dump(payload, f, indent=2)
+    print(f"\nArtifact: {out}")
+
+    from benchmarks._repro import save_run, snapshot_context
+    config = snapshot_context({
+        "trajectory_actions": [str(a) for a in trajectory],
+        "trajectory_length": len(trajectory),
+        "platform": "os_native",
+    })
+    metrics_for_db = {
+        "comparison": payload["comparison"],
+        "constants": payload["constants"],
+        "delta_steps": delta_run["steps"],
+        "delta_ratio": (delta_run["effective_tokens"]["deltas"]
+                       / max(delta_run["steps"], 1)),
+        "token_cost": delta_tok,
+    }
+    rid, run_dir = save_run(
+        benchmark="ablation_os",
+        backend="scripted_spotlight",
+        metrics=metrics_for_db,
+        config=config,
+        notes=f"Matched-trajectory A/B, saved={pct:.1f}%",
+        primary_artifact_path=out,
+        transition_log=delta_run["transitions"],
+    )
+    print(f"DB run id: {rid}    artifact dir: {run_dir}")
 
 
 def _print_run(run: dict) -> None:
