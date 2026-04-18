@@ -328,7 +328,10 @@ def summarize(results: list[dict], args, elapsed: float) -> dict:
         Path(__file__).parent / f"screenspot_result_{_slug(args.model)}.json"
     with out.open("w") as f:
         json.dump(summary, f, indent=2)
-    print(f"Artifact: {out.relative_to(Path.cwd())}")
+    try:
+        print(f"Artifact: {out.relative_to(Path.cwd())}")
+    except ValueError:
+        print(f"Artifact: {out}")
     return summary
 
 

@@ -1,0 +1,702 @@
+{
+  "model": "ui-tars-q4km.gguf",
+  "adapter": "ui-tars",
+  "base_url": "http://127.0.0.1:8080/v1",
+  "per_platform_limit": 10,
+  "total_scored": 30,
+  "overall_accuracy_pct": 53.33,
+  "per_platform_accuracy_pct": {
+    "desktop": 80.0,
+    "mobile": 40.0,
+    "web": 40.0
+  },
+  "by_ui_type": {
+    "desktop_text": {
+      "n": 5,
+      "accuracy_pct": 100.0
+    },
+    "desktop_icon": {
+      "n": 5,
+      "accuracy_pct": 60.0
+    },
+    "mobile_text": {
+      "n": 3,
+      "accuracy_pct": 33.33
+    },
+    "mobile_icon": {
+      "n": 7,
+      "accuracy_pct": 42.86
+    },
+    "web_text": {
+      "n": 5,
+      "accuracy_pct": 80.0
+    },
+    "web_icon": {
+      "n": 5,
+      "accuracy_pct": 0.0
+    }
+  },
+  "wall_time_s": 72.9,
+  "results": [
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "close this window",
+      "img": "pc_ede36f9b-1154-4f76-b7f8-c15d7d3f9b6e.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        910,
+        78,
+        44,
+        34
+      ],
+      "predicted_point": [
+        918.0,
+        94.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(918,94)')"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "minimize this window",
+      "img": "pc_5e09e8e9-7ef6-44be-ad54-aeaeac151897.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        835,
+        0,
+        36,
+        30
+      ],
+      "predicted_point": [
+        841.0,
+        15.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(841,15)')"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "view solitaire daily challenges",
+      "img": "pc_2c6dc6ea-fd6f-4cbb-9954-2d6a68610a48.png",
+      "img_size": [
+        1920,
+        1080
+      ],
+      "bbox_xywh": [
+        1477,
+        450,
+        184,
+        230
+      ],
+      "predicted_point": [
+        1576.0,
+        565.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(1576,565)')"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "open the Microsoft store",
+      "img": "pc_b072d03a-51cb-4dd6-bdeb-152d3fd44e6b.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        176,
+        202,
+        99,
+        101
+      ],
+      "predicted_point": [
+        225.0,
+        250.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(225,250)')"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "adjust the style",
+      "img": "pc_ac2d2c5e-fe5a-4233-95b4-2de18ef76a9e.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        635,
+        360,
+        42,
+        63
+      ],
+      "predicted_point": [
+        675.0,
+        376.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(675,376)')"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "minimize calculator",
+      "img": "pc_f0122b91-3f8b-4510-9a6e-f0239d84b94e.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        697,
+        63,
+        34,
+        32
+      ],
+      "predicted_point": [
+        733.0,
+        77.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(733,77)')"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "open the download page",
+      "img": "pc_354a6cb2-3fe0-4cea-950c-d7f8e01fdf45.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        843,
+        7,
+        48,
+        39
+      ],
+      "predicted_point": [
+        884.0,
+        27.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(884,27)')"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "open the help menu",
+      "img": "pc_d6b09201-c944-4ad9-a0a2-ff78e8f056ce.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        1,
+        434,
+        67,
+        66
+      ],
+      "predicted_point": [
+        35.0,
+        450.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(35,450)')"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "icon",
+      "instruction": "save the file",
+      "img": "pc_db6b6fa2-11cc-4b06-88cb-22c180f07a3b.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        9,
+        0,
+        35,
+        31
+      ],
+      "predicted_point": [
+        30.0,
+        49.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(30,49)')"
+    },
+    {
+      "platform": "desktop",
+      "ui_type": "text",
+      "instruction": "search for software ",
+      "img": "pc_6dfa677c-7772-46fb-8c83-14a33b0806b4.png",
+      "img_size": [
+        960,
+        540
+      ],
+      "bbox_xywh": [
+        316,
+        0,
+        601,
+        38
+      ],
+      "predicted_point": [
+        513.0,
+        19.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(513,19)')"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "check the weather",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        223,
+        78,
+        601,
+        593
+      ],
+      "predicted_point": [
+        467.0,
+        327.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(467,327)')"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "view world clock",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        879,
+        75,
+        599,
+        269
+      ],
+      "predicted_point": [
+        1048.0,
+        195.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(1048,195)')"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "open facetime app",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        618,
+        808,
+        130,
+        158
+      ],
+      "predicted_point": [
+        611.0,
+        787.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(611,787)')"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "open the camera",
+      "img": "mobile_1ca5b944-293a-46a1-af95-eb35bc8a0b2a.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1936,
+        806,
+        120,
+        166
+      ],
+      "predicted_point": [
+        1802.0,
+        802.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(1802,802)')"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "view the menu",
+      "img": "mobile_6949b916-64c8-431f-8842-a29a9a557641.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        40,
+        64,
+        80,
+        66
+      ],
+      "predicted_point": [
+        1062.0,
+        25.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(1062,25)')"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "select source language",
+      "img": "mobile_6949b916-64c8-431f-8842-a29a9a557641.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1077,
+        78,
+        92,
+        115
+      ],
+      "predicted_point": [
+        611.0,
+        127.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(611,127)')"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "close the translation",
+      "img": "mobile_6949b916-64c8-431f-8842-a29a9a557641.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1733,
+        230,
+        95,
+        100
+      ],
+      "predicted_point": [
+        1606.0,
+        255.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(1606,255)')"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "translate the input sentence",
+      "img": "mobile_702eab66-81f1-4aac-a252-37b5f7c3ae68.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        1681,
+        1407,
+        103,
+        103
+      ],
+      "predicted_point": [
+        1560.0,
+        1292.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(1560,1292)')"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "icon",
+      "instruction": "add a new file",
+      "img": "mobile_a1366f87-f1f1-402c-911a-d239eb60eac8.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        29,
+        365,
+        72,
+        77
+      ],
+      "predicted_point": [
+        56.0,
+        366.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(56,366)')"
+    },
+    {
+      "platform": "mobile",
+      "ui_type": "text",
+      "instruction": "click the search bar",
+      "img": "mobile_a1366f87-f1f1-402c-911a-d239eb60eac8.png",
+      "img_size": [
+        2360,
+        1640
+      ],
+      "bbox_xywh": [
+        825,
+        72,
+        848,
+        77
+      ],
+      "predicted_point": [
+        883.0,
+        103.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(883,103)')"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "click the button to create a new project",
+      "img": "web_213f816e-8e80-4d13-970d-1347bbc7a2a8.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2321,
+        129,
+        208,
+        70
+      ],
+      "predicted_point": [
+        2254.0,
+        155.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(2254,155)')"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "view my account profile",
+      "img": "web_213f816e-8e80-4d13-970d-1347bbc7a2a8.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2401,
+        14,
+        111,
+        68
+      ],
+      "predicted_point": [
+        2298.0,
+        45.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(2298,45)')"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "search in gitlab",
+      "img": "web_e40f1b3f-0f26-4313-a6a2-d79e1047951b.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        194,
+        15,
+        645,
+        66
+      ],
+      "predicted_point": [
+        450.0,
+        48.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(450,48)')"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "add a new one",
+      "img": "web_e40f1b3f-0f26-4313-a6a2-d79e1047951b.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        1762,
+        10,
+        87,
+        72
+      ],
+      "predicted_point": [
+        1673.0,
+        46.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(1673,46)')"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "go to personal homepage",
+      "img": "web_fd8d71f6-4229-4458-a77e-7d8a6347c8e9.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2044,
+        96,
+        481,
+        187
+      ],
+      "predicted_point": [
+        2263.0,
+        48.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(2263,48)')"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "sign out",
+      "img": "web_fd8d71f6-4229-4458-a77e-7d8a6347c8e9.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        2043,
+        492,
+        483,
+        89
+      ],
+      "predicted_point": [
+        2124.0,
+        499.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(2124,499)')"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "switch to explore projects",
+      "img": "web_4e1d5837-4731-43f3-8101-52375498c4ad.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        427,
+        234,
+        150,
+        96
+      ],
+      "predicted_point": [
+        463.0,
+        266.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(463,266)')"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "star the project with 56 stars",
+      "img": "web_4e1d5837-4731-43f3-8101-52375498c4ad.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        1601,
+        350,
+        116,
+        66
+      ],
+      "predicted_point": [
+        1520.0,
+        360.0
+      ],
+      "hit": false,
+      "raw_response": "click(start_box='(1520,360)')"
+    },
+    {
+      "platform": "web",
+      "ui_type": "icon",
+      "instruction": "fork the a11y project",
+      "img": "web_4e1d5837-4731-43f3-8101-52375498c4ad.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        1704,
+        678,
+        83,
+        59
+      ],
+      "predicted_point": [
+        1521.0,
+        663.0
+      ],
+      "hit": false,
+      "raw_response": "click(point='(1521,663)')"
+    },
+    {
+      "platform": "web",
+      "ui_type": "text",
+      "instruction": "view issues i've created",
+      "img": "web_bcce7aec-b36a-42c5-8beb-ead23f5ada2c.png",
+      "img_size": [
+        2560,
+        1440
+      ],
+      "bbox_xywh": [
+        197,
+        232,
+        1279,
+        68
+      ],
+      "predicted_point": [
+        310.0,
+        249.0
+      ],
+      "hit": true,
+      "raw_response": "click(point='(310,249)')"
+    }
+  ]
+}

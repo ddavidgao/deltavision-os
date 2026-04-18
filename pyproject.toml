@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "deltavision-os"
-version = "0.1.0-alpha"
+version = "0.1.0a0"
 description = "Delta-first computer-use agent framework for OS-level and OSWorld environments"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -39,6 +39,20 @@ dev = [
 
 [project.scripts]
 deltavision-os = "main:cli_entry"
+
+[tool.setuptools]
+# Flat repo (not src/). List packages explicitly so setuptools doesn't try to
+# auto-discover tests, benchmarks, docs, etc. as installable.
+packages = [
+    "agent",
+    "capture",
+    "execute",
+    "model",
+    "observation",
+    "results",
+    "vision",
+]
+py-modules = ["config", "main", "safety"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
