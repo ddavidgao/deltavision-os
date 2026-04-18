@@ -171,9 +171,10 @@ Helper is in [`benchmarks/_repro.py`](benchmarks/_repro.py); all benchmark scrip
 
 ## What's next
 
-- [ ] OSWorld VM integration (needs OSWorld env install)
+- [x] OSWorld platform + runner wired ([`capture/osworld.py`](capture/osworld.py), [`benchmarks/run_osworld.py`](benchmarks/run_osworld.py)). Real API (`task_config` dict, PNG-bytes obs, pyautogui-string actions). Loads `test_small.json` (39 tasks) cleanly.
+- [ ] OSWorld VM setup on Windows 5080 (Docker-KVM or VMware Workstation) — Phase 2 blocker; Mac can't host (Fusion networking broken on Apple Silicon per open issues)
+- [ ] Full agent run on OSWorld `test_small.json` with and without DeltaVision → measure token ratio + task-success delta
 - [ ] smart_resize-aware client preprocessing to close UI-TARS' ~25pp gap to published FP16 numbers
-- [ ] Full end-to-end agent run on an OS task (current ScreenSpot measures grounding in isolation; need to pair with a real task trajectory)
 - [ ] Migration of V1 paper section 5 (OS-level experiments)
 
 ## License
