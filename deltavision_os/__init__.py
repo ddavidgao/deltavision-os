@@ -20,7 +20,7 @@ re-exports; it doesn't reshape the codebase.
 
 from __future__ import annotations
 
-__version__ = "0.1.0a0"
+__version__ = "0.1.0a1"
 
 # Platform ABCs + concrete platforms
 from deltavision_os.capture.base import Platform

@@ -75,6 +75,11 @@ python benchmarks/desktop_idle_observe.py --rounds 5 --interval 0.5
 
 See [TESTS.md](TESTS.md) for a full breakdown of what each test covers.
 
+**Docs:**
+- [`docs/quickstart.md`](docs/quickstart.md) — 30-line Python-API walkthrough, no VM required
+- [`docs/benchmarks.md`](docs/benchmarks.md) — how to run each benchmark + the comprehensive end-to-end test
+- [`docs/troubleshooting.md`](docs/troubleshooting.md) — known issues (display/headless, OSWorld VM, llama-server detach, a11y hangs) with fixes
+
 ### Packaging guarantees (and what made us spell them out)
 
 Naive-install invariants are enforced by [`tests/test_naive_install.py`](tests/test_naive_install.py):

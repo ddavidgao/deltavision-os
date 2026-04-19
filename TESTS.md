@@ -1,13 +1,15 @@
 # DeltaVision-OS Test Coverage
 
-Visual map of what every test verifies. **238 tests** total, **229 pass offline** (9 need a real display, skipped on CI).
+Visual map of what every test verifies. **267 tests** total, **258 pass offline** (9 need a real display, skipped on CI).
 
 ```
-Total: 238 tests
+Total: 267 tests
 ├── CV pipeline         26 tests  (diff + phash + classifier)
 ├── Agent layer         69 tests  (state + loop + actions)
 ├── Model response      33 tests  (JSON extraction, VLM quirks)
 ├── Observation         12 tests  (builder + post_init invariants)
+├── A11y hybrid         18 tests  (parser + diff-bbox pruner + focused element)
+├── Naive-install       11 tests  (subprocess install/import/shadow invariants)
 ├── Safety layer        37 tests  (URL, credentials, action limits, presets)
 ├── Config validation   45 tests  (every field, every bound)
 ├── Results store       19 tests  (SQLite persistence)
