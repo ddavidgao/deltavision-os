@@ -164,6 +164,11 @@ async def main():
                     choices=("Ubuntu", "Windows"))
     ap.add_argument("--force-full-frame", action="store_true",
                     help="Ablation: disable DeltaVision gating")
+    ap.add_argument("--a11y-hybrid", action="store_true",
+                    help="Enable accessibility-tree hybrid observations "
+                         "(require_a11y_tree=True on OSWorld env). Pairs "
+                         "structured UI text with pixel crops; mitigates "
+                         "UI-TARS-style early-termination on delta crops.")
     ap.add_argument("--max-tasks", type=int, default=0,
                     help="Cap at N tasks (0 = use whole subset)")
     ap.add_argument("--no-safety", action="store_true",
@@ -185,10 +190,13 @@ async def main():
     if not tasks:
         raise SystemExit(f"No tasks to run (subset={args.subset})")
 
+    obs_mode = (
+        "FORCED-FULL" if args.force_full_frame
+        else ("A11Y-HYBRID" if args.a11y_hybrid else "PIXEL-DELTA")
+    )
     print(f"Loaded {len(tasks)} tasks from {args.subset}")
     print(f"Model: {args.model}  base_url: {args.base_url}  "
-          f"provider: {args.provider}  "
-          f"{'FORCED-FULL' if args.force_full_frame else 'DELTAVISION'}")
+          f"provider: {args.provider}  mode: {obs_mode}")
 
     # Import desktop_env from the cloned OSWorld repo
     sys.path.insert(0, str(oswo_repo))
@@ -198,7 +206,7 @@ async def main():
         provider_name=args.provider,
         os_type=args.os_type,
         action_space="pyautogui",
-        require_a11y_tree=False,
+        require_a11y_tree=args.a11y_hybrid,
     )
     model = build_model(args)
     agent_config = DeltaVisionConfig()
@@ -240,6 +248,8 @@ async def main():
         "provider": args.provider,
         "os_type": args.os_type,
         "force_full_frame": args.force_full_frame,
+        "a11y_hybrid": args.a11y_hybrid,
+        "obs_mode": obs_mode,
         "n": n,
         "success_count": succ,
         "success_rate": round(succ / max(n, 1), 4),
@@ -256,7 +266,10 @@ async def main():
     print(f"  estimated_tokens_total={total_tok:,}"
           f"  wall={summary['wall_time_s']}s")
 
-    mode = "forced_full_frame" if args.force_full_frame else "deltavision"
+    mode = (
+        "forced_full_frame" if args.force_full_frame
+        else ("a11y_hybrid" if args.a11y_hybrid else "pixel_delta")
+    )
     out = Path(args.output) if args.output else (
         Path(__file__).parent /
         f"osworld_{args.subset.replace('.json','')}_{mode}.json"
@@ -274,25 +287,23 @@ async def main():
         "provider": args.provider,
         "os_type": args.os_type,
         "force_full_frame": args.force_full_frame,
+        "a11y_hybrid": args.a11y_hybrid,
+        "obs_mode": obs_mode,
         "max_tasks": args.max_tasks,
         "oswo_repo": str(oswo_repo),
     })
     metrics_for_db = {k: v for k, v in summary.items() if k != "results"}
     backend_slug = (
-        f"{args.model}_force_full_frame"
-        if args.force_full_frame
-        else f"{args.model}_deltavision"
+        f"{args.model}_force_full_frame" if args.force_full_frame
+        else (f"{args.model}_a11y_hybrid" if args.a11y_hybrid
+              else f"{args.model}_pixel_delta")
     )
     rid, run_dir = save_run(
         benchmark="osworld",
         backend=backend_slug,
         metrics=metrics_for_db,
         config=config_snapshot,
-        notes=(
-            f"OSWorld {args.subset} n={n} "
-            f"success={succ}/{n} "
-            f"{'FORCED-FULL' if args.force_full_frame else 'DeltaVision'}"
-        ),
+        notes=f"OSWorld {args.subset} n={n} success={succ}/{n} mode={obs_mode}",
         primary_artifact_path=out,
     )
     print(f"DB run id: {rid}    artifact dir: {run_dir}")
