@@ -67,16 +67,21 @@ DEFAULT_SKIP_CATEGORIES = frozenset([
 
 def load_task_index(oswo_repo: Path, subset_name: str,
                     skip_categories: frozenset[str] = DEFAULT_SKIP_CATEGORIES,
-                    categories: tuple[str, ...] = ()) -> list[dict]:
+                    categories: tuple[str, ...] = (),
+                    max_tasks: int = 0) -> list[dict]:
     """Resolve a subset file (e.g. 'test_small.json') into a list of task
     config dicts loaded from evaluation_examples/examples/{category}/{id}.json.
 
     Filters:
       skip_categories: categories known broken upstream (default: chrome +
-          libreoffice_calc). Omit empty frozenset to disable and get raw order.
-      categories: if non-empty, restrict to ONLY these categories. Useful
-          for "one task per app" comprehensive-test scenarios — pass e.g.
-          ('gimp', 'libreoffice_writer', 'vs_code') with --max-tasks 3.
+          libreoffice_calc). Pass empty frozenset to disable.
+      categories: if non-empty, restrict to these categories AND round-robin
+          sample so each category is represented in the first `max_tasks`
+          slots (instead of sequential, which could silently drop tail
+          categories). Useful for "one task per app" scenarios — pass e.g.
+          ('gimp', 'libreoffice_writer', 'vs_code') with `max_tasks=3` to
+          guarantee one of each.
+      max_tasks: 0 means no cap. >0 caps the total (AFTER round-robin).
     """
     root = oswo_repo / "evaluation_examples"
     subset_path = root / subset_name
@@ -90,7 +95,8 @@ def load_task_index(oswo_repo: Path, subset_name: str,
         raise ValueError(f"Unexpected subset format in {subset_path}")
 
     examples = root / "examples"
-    tasks = []
+    # Bucket by category first so we can round-robin sample.
+    by_cat: dict[str, list[dict]] = {}
     missing = []
     skipped_count = 0
     for category, files in index.items():
@@ -99,21 +105,54 @@ def load_task_index(oswo_repo: Path, subset_name: str,
             continue
         if categories and category not in categories:
             continue
+        bucket = []
         for fname in files:
             p = examples / category / f"{fname}.json"
             if p.exists():
                 tc = json.loads(p.read_text())
                 tc.setdefault("id", fname)
                 tc.setdefault("_category", category)
-                tasks.append(tc)
+                bucket.append(tc)
             else:
                 missing.append(str(p))
+        if bucket:
+            by_cat[category] = bucket
+
+    # Warn about user-requested categories that produced zero tasks. Prior
+    # naive-user finding: --categories gimp,libreoffice_writer,vs_code looked
+    # fine but silently ran 2 apps instead of 3 because --max-tasks=3 took
+    # the first N in dict order, filling up on gimp+writer before vs_code.
+    if categories:
+        empty = [c for c in categories if c not in by_cat]
+        if empty:
+            print(f"WARN: --categories asked for {empty} but no tasks "
+                  f"loaded — will produce a less-diverse matrix than "
+                  f"expected.")
+
+    # Interleave: take task 0 of each category, then task 1, etc. This
+    # guarantees the first N tasks cover min(N, len(categories)) distinct
+    # apps when N >= len(categories).
+    tasks: list[dict] = []
+    round_idx = 0
+    while any(round_idx < len(v) for v in by_cat.values()):
+        for cat in by_cat:
+            if round_idx < len(by_cat[cat]):
+                tasks.append(by_cat[cat][round_idx])
+        round_idx += 1
+
+    if max_tasks > 0 and len(tasks) > max_tasks:
+        tasks = tasks[:max_tasks]
+
     if missing:
         print(f"WARN: {len(missing)} task files missing from "
               f"evaluation_examples/examples/ (first: {missing[0]})")
     if skipped_count:
         print(f"Skipped {skipped_count} tasks in {sorted(skip_categories)} "
               f"(known upstream bugs — override with --no-skip-default-broken).")
+    if tasks:
+        covered = sorted({t["_category"] for t in tasks})
+        print(f"Selected {len(tasks)} tasks across {len(covered)} "
+              f"categor{'y' if len(covered) == 1 else 'ies'}: {covered}")
     return tasks
 
 
@@ -168,9 +207,20 @@ async def run_one(env, task_config, model, agent_config, safety) -> dict:
     return result
 
 
-def estimated_tokens(result: dict) -> int:
+def estimated_tokens(result: dict, force_full_frame: bool = False) -> int:
+    """Compute observation token cost for the run.
+
+    Note: with `--force-full-frame` the classifier still LOGS delta verdicts
+    (that's what state.transition_log records), but the delivered
+    observations are all full frames. Use `force_full_frame=True` to count
+    every step as TOK_FULL_FRAME, matching what was actually sent to the
+    model. Prevents the "delta_ratio=97% but tokens were paid in full" mismatch
+    the naive-user report called out.
+    """
     if not result.get("transitions"):
         return 0
+    if force_full_frame:
+        return TOK_FULL_FRAME * (len(result["transitions"]) + 1)
     t = TOK_FULL_FRAME  # initial full-frame observation
     for tr in result["transitions"]:
         t += TOK_DELTA if tr["transition"] == "delta" else TOK_FULL_FRAME
@@ -223,9 +273,8 @@ async def main():
     skip = frozenset() if args.no_skip_default_broken else DEFAULT_SKIP_CATEGORIES
     cats = tuple(c.strip() for c in args.categories.split(",") if c.strip())
     tasks = load_task_index(oswo_repo, args.subset,
-                            skip_categories=skip, categories=cats)
-    if args.max_tasks > 0:
-        tasks = tasks[:args.max_tasks]
+                            skip_categories=skip, categories=cats,
+                            max_tasks=args.max_tasks)
     if not tasks:
         raise SystemExit(f"No tasks to run (subset={args.subset}, "
                          f"skip={sorted(skip)}, cats={cats}). "
@@ -270,7 +319,8 @@ async def main():
             print(f"\n--- Task {i+1}/{len(tasks)}: "
                   f"{tc.get('id', '?')}  [{tc.get('_category', '?')}] ---")
             r = await run_one(env, tc, model, agent_config, safety)
-            r["estimated_tokens"] = estimated_tokens(r)
+            r["estimated_tokens"] = estimated_tokens(
+                r, force_full_frame=args.force_full_frame)
             results.append(r)
             print(f"  steps={r['steps']}  success={r['success']}  "
                   f"score={r['score']}  delta_ratio={r['delta_ratio']:.2f}  "

@@ -5,6 +5,20 @@ row to `results/deltavision.db` and a per-run artifact directory under
 `benchmarks/runs/<bench>_<backend>/run_<id>/` — same reproducibility
 discipline as V1.
 
+> **Clone required.** `pip install deltavision-os` installs the library
+> (`import deltavision_os` works), but the `benchmarks/` directory does
+> NOT ship in the wheel — those are research scripts, not library code.
+> To run anything on this page you need a fresh clone:
+>
+> ```bash
+> git clone https://github.com/ddavidgao/deltavision-os.git
+> cd deltavision-os
+> pip install -e ".[dev]"
+> ```
+>
+> If you already have a clone, `git pull` first — DX fixes land in `main`
+> before they cut a PyPI release.
+
 ## Ranked by "cheapest to run first"
 
 | Benchmark | Script | Needs | Time | What it proves |
