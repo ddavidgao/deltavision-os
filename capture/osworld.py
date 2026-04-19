@@ -176,15 +176,19 @@ def _action_to_pyautogui_string(action: Action) -> str:
     if t == ActionType.SCROLL:
         amount = action.amount or 300
         clicks = amount // 20  # pyautogui uses scroll "clicks" ~20px
-        if action.direction == "up":
+        # Default to 'down' if direction is missing — models like UI-TARS
+        # sometimes emit SCROLL without an explicit direction.
+        direction = (action.direction or "down").lower()
+        if direction == "up":
             return f"pyautogui.scroll({clicks})"
-        if action.direction == "down":
+        if direction == "down":
             return f"pyautogui.scroll({-clicks})"
-        if action.direction == "left":
+        if direction == "left":
             return f"pyautogui.hscroll({-clicks})"
-        if action.direction == "right":
+        if direction == "right":
             return f"pyautogui.hscroll({clicks})"
-        raise ValueError(f"SCROLL needs direction, got {action.direction!r}")
+        # Unknown direction — fall back to down rather than crash the whole task.
+        return f"pyautogui.scroll({-clicks})"
     if t == ActionType.WAIT:
         # OSWorld understands "WAIT" as a no-op; fall back to a pyautogui
         # sleep for compatibility since our WAIT carries a duration.

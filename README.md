@@ -173,7 +173,7 @@ Helper is in [`benchmarks/_repro.py`](benchmarks/_repro.py); all benchmark scrip
 
 - [x] OSWorld platform + runner wired ([`capture/osworld.py`](capture/osworld.py), [`benchmarks/run_osworld.py`](benchmarks/run_osworld.py)). Real API (`task_config` dict, PNG-bytes obs, pyautogui-string actions). Loads `test_small.json` (39 tasks) cleanly.
 - [x] **OSWorld VM running**: native Docker in WSL2 Ubuntu on the Windows 5080 box (bypassing Docker Desktop's credential store quirks). VM container exposes port 5000 (Flask), 8006 (VNC), 9222 (Chrome DevTools). Full `env.reset → env.step('WAIT') → env.evaluate()` round-trip verified on a Chrome task.
-- [ ] Full agent run on OSWorld `test_small.json` with and without DeltaVision → measure token ratio + task-success delta (Phase 3)
+- [~] **Partial Phase 3**: A/B on 6 overlapping clean-run OSWorld tasks (test_small.json, UI-TARS-1.5-7B Q4 via llama.cpp). DeltaVision-ON used **40.8% fewer tokens** (23.2k vs 39.2k) but UI-TARS terminated significantly earlier (4.2 vs 10.3 avg steps). Force-full-frame solved 1 task (GIMP color vibrancy, 26 steps); DeltaVision-ON solved 0. Initial reading: **the model misinterprets delta-crop observations as "task complete" and emits `done=True` early**. DeltaVision's middleware contribution may need a model-side adaptation (prompt or finetune signal) to keep grounding-tuned models engaged. Force-full-frame run was killed at task 10/39 by VM container instability — a full-coverage A/B is still pending.
 - [ ] smart_resize-aware client preprocessing to close UI-TARS' ~25pp gap to published FP16 numbers
 - [ ] Migration of V1 paper section 5 (OS-level experiments)
 

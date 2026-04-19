@@ -1,0 +1,186 @@
+{
+  "subset": "test_small.json",
+  "model": "ui-tars-q4km.gguf",
+  "adapter": "ui-tars",
+  "base_url": "http://172.25.160.1:8080/v1",
+  "provider": "docker",
+  "os_type": "Ubuntu",
+  "force_full_frame": false,
+  "n": 1,
+  "success_count": 0,
+  "success_rate": 0.0,
+  "error_count": 0,
+  "total_estimated_tokens": 10800,
+  "avg_steps": 17.0,
+  "wall_time_s": 140.8,
+  "results": [
+    {
+      "task_id": "bb5e4c0d-f964-439c-97b6-bdb9747de3f4",
+      "category": "chrome",
+      "instruction": "Can you make Bing the main search engine when I look stuff up on the internet?",
+      "steps": 17,
+      "delta_ratio": 0.8823529411764706,
+      "new_page_count": 2,
+      "score": 0.0,
+      "success": false,
+      "error": null,
+      "elapsed_s": 137.2,
+      "transitions": [
+        {
+          "step": 0,
+          "action": "click(34, None)",
+          "transition": "new_page",
+          "trigger": "diff_ratio",
+          "diff_ratio": 0.9426523919753086,
+          "phash_distance": 0,
+          "anchor_score": 1.0
+        },
+        {
+          "step": 1,
+          "action": "click(332, 92)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.026243248456790123,
+          "phash_distance": 14,
+          "anchor_score": 0.99882972240448
+        },
+        {
+          "step": 2,
+          "action": "click(1908, 79)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.04154996141975309,
+          "phash_distance": 12,
+          "anchor_score": 0.9731072187423706
+        },
+        {
+          "step": 3,
+          "action": "click(1651, 801)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.041616512345679015,
+          "phash_distance": 12,
+          "anchor_score": 0.9728472828865051
+        },
+        {
+          "step": 4,
+          "action": "click(1282, 815)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.019194155092592594,
+          "phash_distance": 14,
+          "anchor_score": 0.972510039806366
+        },
+        {
+          "step": 5,
+          "action": "wait(1000ms)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.019213445216049382,
+          "phash_distance": 14,
+          "anchor_score": 0.972420334815979
+        },
+        {
+          "step": 6,
+          "action": "click(1170, 141)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.012299864969135802,
+          "phash_distance": 12,
+          "anchor_score": 0.9993413686752319
+        },
+        {
+          "step": 7,
+          "action": "click(346, 75)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.026285204475308643,
+          "phash_distance": 14,
+          "anchor_score": 0.9982879161834717
+        },
+        {
+          "step": 8,
+          "action": "click(1771, 13)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.026372010030864198,
+          "phash_distance": 14,
+          "anchor_score": 0.9977062344551086
+        },
+        {
+          "step": 9,
+          "action": "wait(2000ms)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.026372010030864198,
+          "phash_distance": 14,
+          "anchor_score": 0.9977062344551086
+        },
+        {
+          "step": 10,
+          "action": "wait(2000ms)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.026390335648148147,
+          "phash_distance": 14,
+          "anchor_score": 0.9976127743721008
+        },
+        {
+          "step": 11,
+          "action": "click(1752, 89)",
+          "transition": "new_page",
+          "trigger": "phash",
+          "diff_ratio": 0.6612528935185186,
+          "phash_distance": 24,
+          "anchor_score": 1.0
+        },
+        {
+          "step": 12,
+          "action": "click(1707, 766)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.051140046296296295,
+          "phash_distance": 6,
+          "anchor_score": 0.9999883770942688
+        },
+        {
+          "step": 13,
+          "action": "click(838, 141)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.054285783179012344,
+          "phash_distance": 6,
+          "anchor_score": 0.9879292249679565
+        },
+        {
+          "step": 14,
+          "action": "click(188, 90)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.054293981481481485,
+          "phash_distance": 6,
+          "anchor_score": 0.987929105758667
+        },
+        {
+          "step": 15,
+          "action": "click(323, None)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.05429639274691358,
+          "phash_distance": 6,
+          "anchor_score": 0.9879292249679565
+        },
+        {
+          "step": 16,
+          "action": "click(802, 88)",
+          "transition": "delta",
+          "trigger": "none",
+          "diff_ratio": 0.05428674768518518,
+          "phash_distance": 6,
+          "anchor_score": 0.9879288077354431
+        }
+      ],
+      "estimated_tokens": 10800
+    }
+  ]
+}
