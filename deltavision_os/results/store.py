@@ -2,7 +2,7 @@
 SQLite-backed result store. Single file, SQL-queryable, zero dependencies.
 
 Usage:
-    from results.store import ResultStore
+    from deltavision_os.results.store import ResultStore
     db = ResultStore()
     db.save("reaction", "deltavision_cv", {"best_ms": 412, "avg_ms": 755})
     db.summary()

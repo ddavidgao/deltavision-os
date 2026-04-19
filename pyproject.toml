@@ -38,21 +38,13 @@ dev = [
 ]
 
 [project.scripts]
-deltavision-os = "main:cli_entry"
+deltavision-os = "deltavision_os.main:cli_entry"
 
-[tool.setuptools]
-# Flat repo (not src/). List packages explicitly so setuptools doesn't try to
-# auto-discover tests, benchmarks, docs, etc. as installable.
-packages = [
-    "agent",
-    "capture",
-    "execute",
-    "model",
-    "observation",
-    "results",
-    "vision",
-]
-py-modules = ["config", "main", "safety"]
+[tool.setuptools.packages.find]
+# Only ship the nested package. Tests, benchmarks, docs, and OSWorld harness
+# code stay out of the wheel (they belong to the repo, not the library).
+include = ["deltavision_os*"]
+exclude = ["tests*", "benchmarks*", "docs*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

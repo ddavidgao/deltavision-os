@@ -7,8 +7,8 @@ import numpy as np
 from PIL import Image
 import pytest
 
-from vision.diff import compute_diff, extract_crops
-from config import DeltaVisionConfig
+from deltavision_os.vision.diff import compute_diff, extract_crops
+from deltavision_os.config import DeltaVisionConfig
 
 
 @pytest.fixture

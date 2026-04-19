@@ -15,12 +15,12 @@ from typing import List
 import pytest
 from PIL import Image
 
-from agent.actions import Action, ActionType
-from agent.loop import run_agent
-from capture.base import Platform
-from capture.os_native import OSNativePlatform
-from config import DeltaVisionConfig
-from model.scripted import ScriptedModel
+from deltavision_os.agent.actions import Action, ActionType
+from deltavision_os.agent.loop import run_agent
+from deltavision_os.capture.base import Platform
+from deltavision_os.capture.os_native import OSNativePlatform
+from deltavision_os.config import DeltaVisionConfig
+from deltavision_os.model.scripted import ScriptedModel
 
 
 class RealCaptureNoopExecute(Platform):

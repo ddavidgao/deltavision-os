@@ -11,7 +11,7 @@ from enum import Enum
 
 import pytest
 
-from agent.state import AgentState
+from deltavision_os.agent.state import AgentState
 
 
 # Lightweight stand-ins for classification objects (no cv2 deps needed here)

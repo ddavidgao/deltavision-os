@@ -28,10 +28,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from vision.diff import compute_diff, extract_crops
-from vision.classifier import classify_transition, extract_anchor
-from capture.os_native import OSNativePlatform
-from config import DeltaVisionConfig
+from deltavision_os.vision.diff import compute_diff, extract_crops
+from deltavision_os.vision.classifier import classify_transition, extract_anchor
+from deltavision_os.capture.os_native import OSNativePlatform
+from deltavision_os.config import DeltaVisionConfig
 
 
 async def run(iterations: int):

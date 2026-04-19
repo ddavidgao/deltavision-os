@@ -11,12 +11,12 @@ Only three V1 → V2 signature changes:
 import asyncio
 import logging
 
-from vision.diff import compute_diff, extract_crops
-from vision.classifier import classify_transition, extract_anchor, TransitionType
-from observation.builder import build_observation
-from agent.state import AgentState
-from capture.base import Platform
-from safety import SafetyLayer
+from deltavision_os.vision.diff import compute_diff, extract_crops
+from deltavision_os.vision.classifier import classify_transition, extract_anchor, TransitionType
+from deltavision_os.observation.builder import build_observation
+from deltavision_os.agent.state import AgentState
+from deltavision_os.capture.base import Platform
+from deltavision_os.safety import SafetyLayer
 
 logger = logging.getLogger(__name__)
 
@@ -148,7 +148,7 @@ async def run_agent(
             )
         else:  # DELTA
             # Re-anchor after scroll since viewport shifted
-            from agent.actions import ActionType
+            from deltavision_os.agent.actions import ActionType
             if action.type == ActionType.SCROLL:
                 t0 = t1
                 anchor_template = extract_anchor(t0, config)

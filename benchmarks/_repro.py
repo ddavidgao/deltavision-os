@@ -82,7 +82,7 @@ def save_run(
 
     primary_artifact_path: if given, copy it into the run dir as result.json.
     """
-    from results.store import ResultStore
+    from deltavision_os.results.store import ResultStore
 
     db = ResultStore()
     try:

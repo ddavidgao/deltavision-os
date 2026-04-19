@@ -6,7 +6,7 @@ Sibling to [`deltavision`](https://github.com/ddavidgao/deltavision), which targ
 
 ## Status
 
-- **256 tests** passing (247 offline, 9 need a real display)
+- **267 tests** passing (258 offline, 9 need a real display)
 - **Live V2 E2E**: real Qwen2.5-VL on an RTX 5080 via SSH tunnel, driving a real Mac desktop through the agent loop — 5 steps, 4.6% median diff, 56% hypothetical token savings vs full-frame. Video at [`benchmarks/v2_live_demo.mp4`](benchmarks/v2_live_demo.mp4).
 - **Matched-trajectory ablation** ([`benchmarks/run_ablation_os.py`](benchmarks/run_ablation_os.py)): DeltaVision-gated vs forced full-frame on the same 10-step desktop script — **68.2% token savings**. Sensitivity sweep across 3 trajectories × 3 NEW_PAGE_DIFF_THRESHOLD values shows savings is threshold-insensitive in [0.30, 0.75] (pHash layer dominates).
 - **ScreenSpot-v2 grounding head-to-head** ([`benchmarks/screenspot_summary.md`](benchmarks/screenspot_summary.md)):
@@ -38,13 +38,26 @@ Sibling to [`deltavision`](https://github.com/ddavidgao/deltavision), which targ
 
 ## Quick Start
 
-**From PyPI** (library only):
+**From PyPI** — library use only (importing `deltavision_os` in your own code). The PyPI build does not include `benchmarks/`, `tests/`, or the OSWorld harness wiring; those ship only in the repo.
 
 ```bash
 pip install deltavision-os
 ```
 
-**From source** (recommended for running the benchmarks — dataset downloads, harness scripts, and tests only ship in the repo):
+Then, from any cwd:
+
+```python
+from deltavision_os import (
+    OSNativePlatform,      # mss capture + pyautogui actions (macOS/Linux/Windows)
+    OSWorldPlatform,       # OSWorld VM wrapper (requires external DesktopEnv)
+    DeltaVisionConfig,     # thresholds + flags
+    run_agent,             # the agent loop
+    build_a11y_observation,# hybrid a11y layer for delta observations
+    ScriptedModel,         # for cost-free trajectory testing
+)
+```
+
+**From source** (required for the benchmark runners, OSWorld integration, and dev tests):
 
 ```bash
 git clone https://github.com/ddavidgao/deltavision-os.git
@@ -52,14 +65,24 @@ cd deltavision-os
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 
-# 256 tests (9 need a real display; those skip on CI)
+# 267 tests total; 258 offline + 9 need a real display
 pytest tests/ -q
 
-# Live desktop benchmark (pure CV, no model needed)
+# Live desktop benchmark (pure CV, no model needed). NOTE: requires a real
+# display — on headless CI this will fail with a pyautogui/Xlib error.
 python benchmarks/desktop_idle_observe.py --rounds 5 --interval 0.5
 ```
 
 See [TESTS.md](TESTS.md) for a full breakdown of what each test covers.
+
+### Packaging guarantees (and what made us spell them out)
+
+Naive-install invariants are enforced by [`tests/test_naive_install.py`](tests/test_naive_install.py):
+- `import deltavision_os` works in a fresh venv from any cwd.
+- All documented public symbols are importable from the top-level package.
+- Installation is **not** shadowed by a user's local `vision/`, `agent/`, `capture/`, `model/`, `observation/`, or `results/` directories — everything lives inside `deltavision_os/`, no top-level pollution.
+
+Those tests exist because V1's v1.0.2 shipped a working wheel that failed `import deltavision` in a fresh venv; writing insider-style tests that passed while naive users couldn't get off the ground is a trap this project now guards against.
 
 Expected benchmark output on a quiet desktop:
 
@@ -124,7 +147,7 @@ deltavision-os/
 ├── results/          # SQLite result store
 ├── benchmarks/       # desktop_idle_observe, pipeline_perf, classifier_sensitivity, record_live_demo
 ├── main.py           # CLI entrypoint
-└── tests/            # 238 passing (247 offline, 9 need display)
+└── tests/            # 238 passing (258 offline, 9 need display)
 ```
 
 ## Shared concept with V1

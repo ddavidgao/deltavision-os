@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image
 import pytest
 
-from vision.phash import compute_phash, hamming_distance
+from deltavision_os.vision.phash import compute_phash, hamming_distance
 
 
 def make_gradient(direction="horizontal", size=(200, 200)) -> Image.Image:

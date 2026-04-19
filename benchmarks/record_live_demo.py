@@ -31,12 +31,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from PIL import Image, ImageDraw
 
-from vision.diff import compute_diff, extract_crops
-from vision.classifier import classify_transition, extract_anchor
-from capture.os_native import OSNativePlatform
-from config import DeltaVisionConfig
-from model.ollama import OllamaModel
-from observation.builder import build_observation
+from deltavision_os.vision.diff import compute_diff, extract_crops
+from deltavision_os.vision.classifier import classify_transition, extract_anchor
+from deltavision_os.capture.os_native import OSNativePlatform
+from deltavision_os.config import DeltaVisionConfig
+from deltavision_os.model.ollama import OllamaModel
+from deltavision_os.observation.builder import build_observation
 
 
 async def run(n_steps: int, out_dir: Path, host: str, port: int, model_name: str, task: str):
@@ -64,7 +64,7 @@ async def run(n_steps: int, out_dir: Path, host: str, port: int, model_name: str
             trigger_reason="initial",
         )
 
-        from agent.state import AgentState
+        from deltavision_os.agent.state import AgentState
         state = AgentState(task=task)
         state.add_observation(obs0)
 
@@ -141,7 +141,7 @@ async def run(n_steps: int, out_dir: Path, host: str, port: int, model_name: str
                 c["crop_after"].save(step_dir / f"crop_{ci}_after.png")
 
             # Build the observation that would be sent
-            from vision.classifier import TransitionType as _TT
+            from deltavision_os.vision.classifier import TransitionType as _TT
             is_new_page = cls.transition == _TT.NEW_PAGE
             obs = build_observation(
                 obs_type="full_frame" if is_new_page else "delta",

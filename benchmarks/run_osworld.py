@@ -46,10 +46,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agent.loop import run_agent
-from capture.osworld import OSWorldPlatform
-from config import DeltaVisionConfig
-from safety import SafetyLayer
+from deltavision_os.agent.loop import run_agent
+from deltavision_os.capture.osworld import OSWorldPlatform
+from deltavision_os.config import DeltaVisionConfig
+from deltavision_os.safety import SafetyLayer
 
 
 TOK_FULL_FRAME = 1600
@@ -93,7 +93,7 @@ def load_task_index(oswo_repo: Path, subset_name: str) -> list[dict]:
 def build_model(args):
     # We only wire llamacpp / openai-compat here because OSWorld runs are
     # long and we want local inference. Extend later if needed.
-    from model.openai import OpenAIModel
+    from deltavision_os.model.openai import OpenAIModel
     return OpenAIModel(
         model=args.model, base_url=args.base_url, api_key="not-needed"
     )

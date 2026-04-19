@@ -5,7 +5,7 @@ that protects every model backend from local-VLM output quirks.
 
 import pytest
 
-from model._response_parser import (
+from deltavision_os.model._response_parser import (
     extract_json,
     normalize_response,
     get_confidence,

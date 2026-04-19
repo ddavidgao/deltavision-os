@@ -5,8 +5,8 @@ Builds typed Observation objects from raw pipeline outputs.
 from typing import Optional, List
 from PIL import Image
 
-from agent.actions import Action
-from vision.diff import DiffResult
+from deltavision_os.agent.actions import Action
+from deltavision_os.vision.diff import DiffResult
 from .types import FullFrameObservation, DeltaObservation, Observation
 from .a11y import A11yObservation, build_a11y_observation
 

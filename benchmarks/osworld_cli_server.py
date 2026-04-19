@@ -43,9 +43,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from desktop_env.desktop_env import DesktopEnv  # provided by OSWorld in WSL venv
 
-from config import DeltaVisionConfig
-from vision.diff import compute_diff, extract_crops
-from vision.classifier import classify_transition, extract_anchor, TransitionType
+from deltavision_os.config import DeltaVisionConfig
+from deltavision_os.vision.diff import compute_diff, extract_crops
+from deltavision_os.vision.classifier import classify_transition, extract_anchor, TransitionType
 
 
 OUT_DIR = Path("/mnt/c/Users/david/deltavision-os/_osworld_run")

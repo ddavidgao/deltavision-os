@@ -13,7 +13,7 @@ from PIL import Image
 import mss
 import mss.tools
 
-from capture.base import Platform
+from deltavision_os.capture.base import Platform
 
 
 class OSNativePlatform(Platform):
@@ -67,7 +67,7 @@ class OSNativePlatform(Platform):
 
         # Import here to avoid a circular-ish dep in the scaffold.
         # Once agent/actions.py lands, this will be a direct import.
-        from agent.actions import ActionType
+        from deltavision_os.agent.actions import ActionType
 
         pg = self._pyautogui
         atype = action.type

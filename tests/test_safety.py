@@ -8,8 +8,8 @@ to malicious URLs. Every branch in safety.py needs coverage.
 
 import pytest
 
-from agent.actions import Action, ActionType
-from safety import SafetyLayer, SafetyResult, PERMISSIVE, STRICT, EDUCATIONAL
+from deltavision_os.agent.actions import Action, ActionType
+from deltavision_os.safety import SafetyLayer, SafetyResult, PERMISSIVE, STRICT, EDUCATIONAL
 
 
 # ------------------------------------------------------------------- helpers

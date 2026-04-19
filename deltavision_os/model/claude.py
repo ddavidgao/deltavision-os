@@ -21,7 +21,7 @@ from PIL import Image
 
 from .base import BaseModel, ModelResponse
 from ._response_parser import extract_json, normalize_response, get_confidence
-from agent.actions import parse_action
+from deltavision_os.agent.actions import parse_action
 
 log = logging.getLogger(__name__)
 

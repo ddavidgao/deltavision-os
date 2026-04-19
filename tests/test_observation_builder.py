@@ -13,9 +13,9 @@ Covered:
 import numpy as np
 from PIL import Image
 
-from agent.actions import Action, ActionType
-from observation.builder import build_observation
-from observation.types import FullFrameObservation, DeltaObservation
+from deltavision_os.agent.actions import Action, ActionType
+from deltavision_os.observation.builder import build_observation
+from deltavision_os.observation.types import FullFrameObservation, DeltaObservation
 
 
 def _img(color=(128, 128, 128), size=(100, 100)):

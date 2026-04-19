@@ -24,9 +24,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import numpy as np
 from PIL import Image
 
-from config import DeltaVisionConfig
-from vision.diff import compute_diff
-from vision.classifier import classify_transition, extract_anchor
+from deltavision_os.config import DeltaVisionConfig
+from deltavision_os.vision.diff import compute_diff
+from deltavision_os.vision.classifier import classify_transition, extract_anchor
 
 
 def make_base_frame(size=(800, 600)) -> Image.Image:

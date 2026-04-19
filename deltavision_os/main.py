@@ -42,21 +42,21 @@ try:
 except ImportError:
     pass  # optional
 
-from config import DeltaVisionConfig
-from agent.loop import run_agent
+from deltavision_os.config import DeltaVisionConfig
+from deltavision_os.agent.loop import run_agent
 
 
 def build_platform(args):
     """Construct the concrete Platform instance per --platform flag."""
     if args.platform == "os":
-        from capture.os_native import OSNativePlatform
+        from deltavision_os.capture.os_native import OSNativePlatform
         return OSNativePlatform(
             monitor=args.monitor,
             cursor_park=(args.cursor_park_x, args.cursor_park_y)
             if args.cursor_park_x is not None else None,
         )
     elif args.platform == "osworld":
-        from capture.osworld import OSWorldPlatform
+        from deltavision_os.capture.osworld import OSWorldPlatform
         # OSWorld env instance must be passed via env hook; this is a stub
         return OSWorldPlatform(task_id=args.task_id)
     else:
@@ -67,8 +67,8 @@ def build_platform(args):
 def build_model(args, config):
     """Construct the model backend per --backend flag."""
     if args.backend == "scripted":
-        from agent.actions import Action, ActionType
-        from model.scripted import ScriptedModel
+        from deltavision_os.agent.actions import Action, ActionType
+        from deltavision_os.model.scripted import ScriptedModel
         # Default: N no-op WAIT actions so the pipeline runs but nothing executes
         actions = [
             Action(type=ActionType.WAIT, duration_ms=500)
@@ -77,7 +77,7 @@ def build_model(args, config):
         return ScriptedModel(actions)
 
     if args.backend == "llamacpp":
-        from model.llamacpp import LlamaCppModel
+        from deltavision_os.model.llamacpp import LlamaCppModel
         return LlamaCppModel(
             host=args.host,
             port=args.port,
@@ -85,7 +85,7 @@ def build_model(args, config):
         )
 
     if args.backend == "claude":
-        from model.claude import ClaudeModel
+        from deltavision_os.model.claude import ClaudeModel
         key = os.environ.get("ANTHROPIC_API_KEY")
         if not key:
             print("Error: ANTHROPIC_API_KEY not set", file=sys.stderr)
@@ -93,7 +93,7 @@ def build_model(args, config):
         return ClaudeModel(api_key=key, model=args.model or "claude-sonnet-4-6")
 
     if args.backend == "openai":
-        from model.openai import OpenAIModel
+        from deltavision_os.model.openai import OpenAIModel
         key = os.environ.get("OPENAI_API_KEY") or "sk-no-key"
         return OpenAIModel(
             api_key=key,
@@ -102,7 +102,7 @@ def build_model(args, config):
         )
 
     if args.backend == "ollama":
-        from model.ollama import OllamaModel
+        from deltavision_os.model.ollama import OllamaModel
         return OllamaModel(
             model=args.model or "qwen2.5vl:7b",
             host=f"http://{args.host}:{args.port or 11434}",
@@ -115,7 +115,7 @@ def build_model(args, config):
 def build_safety(mode):
     if mode == "none":
         return None
-    from safety import PERMISSIVE, STRICT, EDUCATIONAL
+    from deltavision_os.safety import PERMISSIVE, STRICT, EDUCATIONAL
     return {"permissive": PERMISSIVE, "strict": STRICT, "educational": EDUCATIONAL}[mode]
 
 

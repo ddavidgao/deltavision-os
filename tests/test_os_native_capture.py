@@ -11,7 +11,7 @@ import pytest
 
 from PIL import Image
 
-from capture.os_native import OSNativePlatform
+from deltavision_os.capture.os_native import OSNativePlatform
 
 
 @pytest.fixture

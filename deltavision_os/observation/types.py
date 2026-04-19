@@ -6,9 +6,9 @@ from dataclasses import dataclass, field
 from typing import Optional, List
 from PIL import Image
 
-from agent.actions import Action
-from vision.diff import DiffResult
-from observation.a11y import A11yObservation
+from deltavision_os.agent.actions import Action
+from deltavision_os.vision.diff import DiffResult
+from deltavision_os.observation.a11y import A11yObservation
 
 
 @dataclass

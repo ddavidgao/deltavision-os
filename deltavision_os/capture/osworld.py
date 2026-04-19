@@ -43,8 +43,8 @@ from typing import Optional
 
 from PIL import Image
 
-from agent.actions import Action, ActionType
-from capture.base import Platform
+from deltavision_os.agent.actions import Action, ActionType
+from deltavision_os.capture.base import Platform
 
 
 class OSWorldPlatform(Platform):

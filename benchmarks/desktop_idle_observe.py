@@ -28,10 +28,10 @@ from pathlib import Path
 # Allow running as `python benchmarks/desktop_idle_observe.py` from project root
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from vision.diff import compute_diff
-from vision.classifier import classify_transition, extract_anchor, TransitionType
-from capture.os_native import OSNativePlatform
-from config import DeltaVisionConfig
+from deltavision_os.vision.diff import compute_diff
+from deltavision_os.vision.classifier import classify_transition, extract_anchor, TransitionType
+from deltavision_os.capture.os_native import OSNativePlatform
+from deltavision_os.config import DeltaVisionConfig
 
 
 async def run(rounds: int, interval: float, save_dir: Path | None):

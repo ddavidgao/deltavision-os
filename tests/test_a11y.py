@@ -12,7 +12,7 @@ import textwrap
 
 import pytest
 
-from observation.a11y import (
+from deltavision_os.observation.a11y import (
     A11yNode,
     A11yObservation,
     build_a11y_observation,

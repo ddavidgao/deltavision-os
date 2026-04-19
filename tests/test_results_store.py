@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from results.store import ResultStore
+from deltavision_os.results.store import ResultStore
 
 
 @pytest.fixture

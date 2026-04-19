@@ -14,11 +14,11 @@ import numpy as np
 import pytest
 from PIL import Image
 
-from agent.actions import Action, ActionType
-from agent.loop import run_agent
-from capture.base import Platform
-from config import DeltaVisionConfig
-from model.scripted import ScriptedModel
+from deltavision_os.agent.actions import Action, ActionType
+from deltavision_os.agent.loop import run_agent
+from deltavision_os.capture.base import Platform
+from deltavision_os.config import DeltaVisionConfig
+from deltavision_os.model.scripted import ScriptedModel
 
 
 class MockPlatform(Platform):
@@ -228,7 +228,7 @@ class TestLoopIntegration:
     def test_safety_block_increments_step_without_executing(self):
         """When safety blocks an action, the platform's execute() is not called
         but step advances and a safety-block observation is recorded."""
-        from safety import SafetyLayer
+        from deltavision_os.safety import SafetyLayer
 
         frames = [_striped(0), _striped(5), _striped(8)]
         platform = MockPlatform(frames)

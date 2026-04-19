@@ -8,7 +8,7 @@ UI-TARS / CogAgent formats, plus field coercion for local-VLM quirks.
 
 import pytest
 
-from agent.actions import Action, ActionType, parse_action
+from deltavision_os.agent.actions import Action, ActionType, parse_action
 
 
 class TestNativeFormat:

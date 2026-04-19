@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from typing import Optional, Set
 from urllib.parse import urlparse
 
-from agent.actions import Action, ActionType
+from deltavision_os.agent.actions import Action, ActionType
 
 logger = logging.getLogger(__name__)
 

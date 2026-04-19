@@ -24,11 +24,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agent.loop import run_agent
-from agent.actions import Action, ActionType
-from capture.os_native import OSNativePlatform
-from config import DeltaVisionConfig
-from model.scripted import ScriptedModel
+from deltavision_os.agent.loop import run_agent
+from deltavision_os.agent.actions import Action, ActionType
+from deltavision_os.capture.os_native import OSNativePlatform
+from deltavision_os.config import DeltaVisionConfig
+from deltavision_os.model.scripted import ScriptedModel
 
 
 # Same constants V1 uses for its 95% claim, so the two numbers are

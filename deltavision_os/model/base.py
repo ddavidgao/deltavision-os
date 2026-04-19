@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Optional
 
-from agent.actions import Action
+from deltavision_os.agent.actions import Action
 
 
 @dataclass

@@ -7,13 +7,13 @@ import numpy as np
 from PIL import Image
 import pytest
 
-from vision.classifier import (
+from deltavision_os.vision.classifier import (
     classify_transition,
     extract_anchor,
     match_anchor,
     TransitionType,
 )
-from config import DeltaVisionConfig
+from deltavision_os.config import DeltaVisionConfig
 
 
 @pytest.fixture

@@ -14,7 +14,7 @@ Usage:
 from typing import List, Optional
 
 from .base import BaseModel, ModelResponse
-from agent.actions import Action, ActionType
+from deltavision_os.agent.actions import Action, ActionType
 
 
 class ScriptedModel(BaseModel):
