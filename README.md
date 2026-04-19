@@ -181,6 +181,8 @@ Helper is in [`benchmarks/_repro.py`](benchmarks/_repro.py); all benchmark scrip
     - *Full frames still help spatial recovery.* When a click misses its target, full-screen context each step lets the model see "where am I" and self-correct. Delta crops limit this.
     - The paper framing shifts from "model-agnostic middleware" to **"DeltaVision saves tokens, with a recovery-context trade-off that's model-dependent; pair it with a model that can either handle delta crops or receive full frames on ambiguity."**
 
+- [~] **A11y-hybrid observation layer** (WIP — matches V1's v1.0.2 DOM+focus unlock, ported to OS). Parser + pruner + schema lives in [`observation/a11y.py`](observation/a11y.py), 18 passing unit tests in [`tests/test_a11y.py`](tests/test_a11y.py). Novelty: uses the pixel-diff bbox as the gate for which a11y nodes enter the prompt (UFO2 filters by interactivity; OSWorld filters by role whitelist; DeltaVision-OS filters by what *changed* + what's focused). Next: wire into `agent/loop.py` + model backends + test against a live OSWorld task.
+
 - [ ] Full OSWorld A/B across ≥20 tasks on a Sonnet-class model (current blocker: subagent-driven runs take ~30 min/task × 2 modes × N tasks ≫ practical. Needs Anthropic API key or equivalent direct inference path).
 - [ ] smart_resize-aware client preprocessing to close UI-TARS' ~25pp gap to published FP16 numbers
 - [ ] Migration of V1 paper section 5 (OS-level experiments)
