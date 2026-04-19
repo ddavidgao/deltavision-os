@@ -204,9 +204,48 @@ def step():
     return jsonify(SESSION.step(body["action"]))
 
 
+@app.post("/patch_evaluator")
+def patch_evaluator():
+    """Patch the evaluator config in the running env (for when /init was called with incomplete config).
+    Also rebuilds result_getter / expected_getter so evaluate() works correctly.
+    """
+    import traceback as _tb
+    if SESSION.env is None:
+        return jsonify({"error": "no active session"}), 400
+    try:
+        patch = request.get_json()
+        SESSION.env.evaluator.update(patch)
+        env = SESSION.env
+        evaluator = env.evaluator
+        # Re-run the getter binding from _set_evaluator_info logic
+        from desktop_env.evaluators import getters as _getters
+        if "result" in evaluator and evaluator["result"]:
+            res = evaluator["result"]
+            if isinstance(res, list):
+                env.result_getter = [getattr(_getters, "get_{:}".format(r["type"])) for r in res]
+            else:
+                env.result_getter = getattr(_getters, "get_{:}".format(res["type"]))
+        if "expected" in evaluator and evaluator["expected"]:
+            exp = evaluator["expected"]
+            if isinstance(exp, list):
+                env.expected_getter = [getattr(_getters, "get_{:}".format(e["type"])) for e in exp]
+            else:
+                env.expected_getter = getattr(_getters, "get_{:}".format(exp["type"]))
+        return jsonify({"patched": evaluator,
+                        "result_getter": str(env.result_getter),
+                        "expected_getter": str(getattr(env, "expected_getter", None))})
+    except Exception as _e:
+        return jsonify({"error": str(_e), "traceback": _tb.format_exc()}), 500
+
+
 @app.post("/score")
 def score():
-    return jsonify({"score": SESSION.evaluate()})
+    import traceback as _tb
+    try:
+        return jsonify({"score": SESSION.evaluate()})
+    except Exception as _e:
+        err = _tb.format_exc()
+        return jsonify({"error": str(_e), "traceback": err}), 500
 
 
 @app.post("/close")
