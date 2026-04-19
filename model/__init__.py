@@ -1,1 +1,1 @@
-"""V2 model backends. Wraps V1 parser/OpenAI/Claude/Ollama + adds llama.cpp."""
+"""V2 model backends: scripted, Claude, OpenAI/llama.cpp, Ollama. Pluggable via BaseModel."""
