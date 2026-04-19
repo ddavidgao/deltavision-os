@@ -146,6 +146,7 @@ class OpenAIModel(BaseModel):
                 ),
             })
             content.append(self._img_block(observation.frame))
+            _append_a11y(content, observation)
         else:
             header = (
                 f"DELTA observation. Task: {observation.task}\n"
@@ -169,6 +170,7 @@ class OpenAIModel(BaseModel):
                     content.append(self._img_block(crop["crop_before"]))
                     content.append({"type": "text", "text": "AFTER:"})
                     content.append(self._img_block(crop["crop_after"]))
+            _append_a11y(content, observation)
 
         return content
 
@@ -181,3 +183,25 @@ class OpenAIModel(BaseModel):
             "type": "image_url",
             "image_url": {"url": f"data:image/png;base64,{b64}"},
         }
+
+
+def _append_a11y(content: list, observation) -> None:
+    """Serialize the A11yObservation (if present) into a text content block.
+
+    Mirrors V1's v1.0.2 DOM+focus unlock — gives the model structured
+    text about UI elements near the diff + currently-focused element. Kept
+    compact (tight per-line format) so it doesn't balloon the prompt.
+
+    Opt-in: if the observation has no `a11y` field or it's None, no block is
+    added — silent when platforms don't expose a11y.
+    """
+    a11y = getattr(observation, "a11y", None)
+    if a11y is None:
+        return
+    rendered = a11y.prompt_text()
+    if not rendered:
+        return
+    content.append({
+        "type": "text",
+        "text": f"\n--- ACCESSIBILITY ---\n{rendered}\n---\n",
+    })

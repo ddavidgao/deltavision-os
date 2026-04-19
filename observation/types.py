@@ -8,6 +8,7 @@ from PIL import Image
 
 from agent.actions import Action
 from vision.diff import DiffResult
+from observation.a11y import A11yObservation
 
 
 @dataclass
@@ -27,6 +28,10 @@ class FullFrameObservation(Observation):
     frame: Optional[Image.Image] = None
     url: str = ""
     trigger_reason: str = ""  # "initial" | "url_change" | "diff_ratio" | "phash" | "anchor_loss" | "force_refresh_no_effect"
+    # Optional a11y payload. None = platform doesn't support it; an
+    # A11yObservation object (with status='disabled', 'ok', 'timeout', etc.)
+    # means we attempted to fetch. Model backends serialize into the prompt.
+    a11y: Optional[A11yObservation] = None
 
     def __post_init__(self):
         self.obs_type = "full_frame"
@@ -44,6 +49,10 @@ class DeltaObservation(Observation):
     text_deltas: List[dict] = field(default_factory=list)  # [{"bbox": ..., "before": str, "after": str}]
     # Current frame for backends that want a single annotated screenshot
     current_frame: Optional[Image.Image] = None
+    # A11y payload pruned to changed regions + focused element. See
+    # observation/a11y.py for the schema and observation/builder.py for how
+    # it's populated from capture/*.get_a11y_xml().
+    a11y: Optional[A11yObservation] = None
 
     def __post_init__(self):
         self.obs_type = "delta"

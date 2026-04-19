@@ -54,6 +54,21 @@ class Platform(ABC):
         """Release resources. Called on shutdown (normal or exceptional)."""
         ...
 
+    async def get_a11y_xml(self) -> Optional[str]:
+        """Return accessibility-tree XML for the current frame, or None.
+
+        Optional. Platforms that can cheaply produce a serialized a11y tree
+        (OSWorld's Flask server returns one via `obs["accessibility_tree"]`
+        when the env is constructed with `require_a11y_tree=True`) should
+        override this. The default is None — caller treats that as "a11y
+        unavailable on this platform" and uses pixel-only observations.
+
+        Must be cheap (<5s). Known slow cases (LibreOffice Calc, OSWorld
+        issue #185) should be fail-open: return None on timeout rather than
+        block the loop.
+        """
+        return None
+
     # Async context manager helpers so callers can do:
     #   async with platform:
     #       state = await run_agent(...)

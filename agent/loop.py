@@ -41,6 +41,7 @@ async def run_agent(
     # Platform has already been set up by the caller (async with platform:).
     t0 = await platform.capture()
     url_t0 = await platform.get_url()
+    a11y_t0 = await platform.get_a11y_xml()
     anchor_template = extract_anchor(t0, config)
 
     obs = build_observation(
@@ -51,6 +52,7 @@ async def run_agent(
         frame=t0,
         url=url_t0 or "",
         trigger_reason="initial",
+        a11y_xml=a11y_t0,
     )
     state.add_observation(obs)
 
@@ -74,14 +76,16 @@ async def run_agent(
             if not check.allowed:
                 logger.warning("SAFETY BLOCK: %s", check.reason)
                 state.step += 1
+                frame_now = await platform.capture()
                 obs = build_observation(
                     obs_type="full_frame",
                     task=task,
                     step=state.step,
                     last_action=action,
-                    frame=await platform.capture(),
+                    frame=frame_now,
                     url=(await platform.get_url()) or "",
                     trigger_reason=f"safety_block:{check.reason}",
+                    a11y_xml=await platform.get_a11y_xml(),
                 )
                 state.add_observation(obs)
                 continue
@@ -96,6 +100,7 @@ async def run_agent(
         # Capture and classify
         t1 = await platform.capture()
         url_after = await platform.get_url()
+        a11y_after = await platform.get_a11y_xml()
 
         diff_result = compute_diff(t0, t1, config)
         classification = classify_transition(
@@ -139,6 +144,7 @@ async def run_agent(
                 frame=t1,
                 url=url_after or "",
                 trigger_reason=trigger,
+                a11y_xml=a11y_after,
             )
         else:  # DELTA
             # Re-anchor after scroll since viewport shifted
@@ -160,6 +166,7 @@ async def run_agent(
                     state.no_change_streak,
                 )
                 t0_refresh = await platform.capture()
+                a11y_refresh = await platform.get_a11y_xml()
                 obs = build_observation(
                     obs_type="full_frame",
                     task=task,
@@ -168,6 +175,7 @@ async def run_agent(
                     frame=t0_refresh,
                     url=url_after or "",
                     trigger_reason="force_refresh_no_effect",
+                    a11y_xml=a11y_refresh,
                 )
                 state.reset_no_change_streak()
                 t0 = t0_refresh
@@ -183,6 +191,7 @@ async def run_agent(
                     action_had_effect=diff_result.action_had_effect,
                     no_change_count=state.no_change_streak,
                     current_frame=t1,
+                    a11y_xml=a11y_after,
                 )
 
         state.add_observation(obs)

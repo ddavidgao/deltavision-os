@@ -6,7 +6,7 @@ Sibling to [`deltavision`](https://github.com/ddavidgao/deltavision), which targ
 
 ## Status
 
-- **238 tests** passing (229 offline, 9 need a real display)
+- **256 tests** passing (247 offline, 9 need a real display)
 - **Live V2 E2E**: real Qwen2.5-VL on an RTX 5080 via SSH tunnel, driving a real Mac desktop through the agent loop — 5 steps, 4.6% median diff, 56% hypothetical token savings vs full-frame. Video at [`benchmarks/v2_live_demo.mp4`](benchmarks/v2_live_demo.mp4).
 - **Matched-trajectory ablation** ([`benchmarks/run_ablation_os.py`](benchmarks/run_ablation_os.py)): DeltaVision-gated vs forced full-frame on the same 10-step desktop script — **68.2% token savings**. Sensitivity sweep across 3 trajectories × 3 NEW_PAGE_DIFF_THRESHOLD values shows savings is threshold-insensitive in [0.30, 0.75] (pHash layer dominates).
 - **ScreenSpot-v2 grounding head-to-head** ([`benchmarks/screenspot_summary.md`](benchmarks/screenspot_summary.md)):
@@ -52,7 +52,7 @@ cd deltavision-os
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 
-# 238 tests (9 need a real display; those skip on CI)
+# 256 tests (9 need a real display; those skip on CI)
 pytest tests/ -q
 
 # Live desktop benchmark (pure CV, no model needed)
@@ -124,7 +124,7 @@ deltavision-os/
 ├── results/          # SQLite result store
 ├── benchmarks/       # desktop_idle_observe, pipeline_perf, classifier_sensitivity, record_live_demo
 ├── main.py           # CLI entrypoint
-└── tests/            # 238 passing (229 offline, 9 need display)
+└── tests/            # 238 passing (247 offline, 9 need display)
 ```
 
 ## Shared concept with V1
@@ -181,7 +181,8 @@ Helper is in [`benchmarks/_repro.py`](benchmarks/_repro.py); all benchmark scrip
     - *Full frames still help spatial recovery.* When a click misses its target, full-screen context each step lets the model see "where am I" and self-correct. Delta crops limit this.
     - The paper framing shifts from "model-agnostic middleware" to **"DeltaVision saves tokens, with a recovery-context trade-off that's model-dependent; pair it with a model that can either handle delta crops or receive full frames on ambiguity."**
 
-- [~] **A11y-hybrid observation layer** (WIP — matches V1's v1.0.2 DOM+focus unlock, ported to OS). Parser + pruner + schema lives in [`observation/a11y.py`](observation/a11y.py), 18 passing unit tests in [`tests/test_a11y.py`](tests/test_a11y.py). Novelty: uses the pixel-diff bbox as the gate for which a11y nodes enter the prompt (UFO2 filters by interactivity; OSWorld filters by role whitelist; DeltaVision-OS filters by what *changed* + what's focused). Next: wire into `agent/loop.py` + model backends + test against a live OSWorld task.
+- [x] **A11y-hybrid observation layer** — V1's v1.0.2 DOM+focus unlock, ported to OS. End-to-end path: [`Platform.get_a11y_xml()`](capture/base.py) → [`observation/a11y.py`](observation/a11y.py) (parse + diff-bbox-prune + rank by intersect_ratio + always-include focused) → [`build_observation`](observation/builder.py) stores `A11yObservation` on both `FullFrameObservation` and `DeltaObservation` → model backend serializes as a compact `[a11y: ok, N raw nodes, showing K]` text block alongside images ([model/openai.py](model/openai.py)). [`OSWorldPlatform`](capture/osworld.py) absorbs `obs["accessibility_tree"]` from each env step (zero extra HTTP round-trips when `require_a11y_tree=True`). 18 unit tests for parser/pruner in [`tests/test_a11y.py`](tests/test_a11y.py). **Novelty**: UFO2 filters by interactivity; OSWorld filters by role whitelist; DeltaVision-OS filters by what *changed* + what's focused — the pixel-diff bbox as the gate.
+    - *Next*: enable `require_a11y_tree=True` in the benchmark runner, run OSWorld `test_small` A/B with hybrid vs pixel-only, measure if task success rate closes the 0/6 gap against UI-TARS/Sonnet.
 
 - [ ] Full OSWorld A/B across ≥20 tasks on a Sonnet-class model (current blocker: subagent-driven runs take ~30 min/task × 2 modes × N tasks ≫ practical. Needs Anthropic API key or equivalent direct inference path).
 - [ ] smart_resize-aware client preprocessing to close UI-TARS' ~25pp gap to published FP16 numbers

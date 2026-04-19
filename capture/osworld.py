@@ -59,7 +59,8 @@ class OSWorldPlatform(Platform):
     def __init__(self, env, initial_obs: Optional[dict] = None):
         """
         env:          DesktopEnv instance from the `desktop_env` package.
-                      Already reset — caller owns lifecycle.
+                      Already reset — caller owns lifecycle. For a11y-hybrid
+                      observations, construct it with `require_a11y_tree=True`.
         initial_obs:  The dict returned by env.reset(). If None, capture()
                       fetches fresh on first call (cheaper for the caller,
                       more HTTP for us; prefer passing it in).
@@ -67,6 +68,7 @@ class OSWorldPlatform(Platform):
         self._env = env
         self._frame: Optional[Image.Image] = None
         self._instruction: Optional[str] = None
+        self._a11y_xml: Optional[str] = None
         if initial_obs is not None:
             self._absorb(initial_obs)
 
@@ -85,6 +87,15 @@ class OSWorldPlatform(Platform):
         # OSWorld tasks span apps; URL is usually meaningless. Returning None
         # tells the classifier to fall through to diff/pHash/anchor layers.
         return None
+
+    async def get_a11y_xml(self) -> Optional[str]:
+        """Return the cached a11y tree from the last env step, if available.
+
+        Non-None only when `DesktopEnv(..., require_a11y_tree=True)` — we
+        absorb `obs["accessibility_tree"]` on every reset/step and serve the
+        cached copy here. No extra HTTP round-trip per call.
+        """
+        return self._a11y_xml
 
     async def execute(self, action: Action) -> None:
         action_str = _action_to_pyautogui_string(action)
@@ -111,11 +122,14 @@ class OSWorldPlatform(Platform):
     # -- private --
 
     def _absorb(self, obs: dict) -> None:
-        """Stash the frame + instruction from an OSWorld obs dict."""
+        """Stash frame + instruction + a11y from an OSWorld obs dict."""
         if "screenshot" in obs:
             self._frame = _pil_from_png_bytes(obs["screenshot"])
         if obs.get("instruction"):
             self._instruction = obs["instruction"]
+        # accessibility_tree is an XML string. None when DesktopEnv was built
+        # with require_a11y_tree=False; '' when the app didn't expose one.
+        self._a11y_xml = obs.get("accessibility_tree")
 
     async def _fresh_capture(self) -> Image.Image:
         """Ask OSWorld for a new screenshot without taking an action.
