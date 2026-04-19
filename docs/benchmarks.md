@@ -75,33 +75,48 @@ Run the matrix (in WSL, inside the venv):
 export LLAMA=http://172.25.160.1:8080/v1
 export OSWORLD=/mnt/c/Users/david/OSWorld
 
+# IMPORTANT: prefix with PYTHONUNBUFFERED=1. OSWorld runs can take 30+
+# minutes; without it, stdout is block-buffered and progress looks frozen
+# even though the run is healthy.
+
+# Pick ONE task per distinct app so the matrix spans real categories.
+# --categories avoids the "first 3 all happen to be chrome (which is
+# upstream-broken)" trap. chrome + libreoffice_calc are auto-skipped
+# anyway; --categories narrows further.
+COMP_CATS=gimp,libreoffice_writer,vs_code
+
 # Config A — pixel-only delta
-python -m deltavision_os.main  # or the runner directly:
-python benchmarks/run_osworld.py \
+PYTHONUNBUFFERED=1 python benchmarks/run_osworld.py \
     --oswo-repo $OSWORLD \
     --subset test_small.json --max-tasks 3 \
+    --categories $COMP_CATS \
     --model ui-tars-q4km.gguf --adapter ui-tars --base-url $LLAMA \
     --no-safety \
     --output benchmarks/comprehensive_A_pixel_delta.json
 
 # Config B — a11y hybrid (the new thing)
-python benchmarks/run_osworld.py \
+PYTHONUNBUFFERED=1 python benchmarks/run_osworld.py \
     --oswo-repo $OSWORLD \
     --subset test_small.json --max-tasks 3 \
+    --categories $COMP_CATS \
     --model ui-tars-q4km.gguf --adapter ui-tars --base-url $LLAMA \
     --a11y-hybrid \
     --no-safety \
     --output benchmarks/comprehensive_B_a11y.json
 
 # Config C — forced full frame baseline
-python benchmarks/run_osworld.py \
+PYTHONUNBUFFERED=1 python benchmarks/run_osworld.py \
     --oswo-repo $OSWORLD \
     --subset test_small.json --max-tasks 3 \
+    --categories $COMP_CATS \
     --model ui-tars-q4km.gguf --adapter ui-tars --base-url $LLAMA \
     --force-full-frame \
     --no-safety \
     --output benchmarks/comprehensive_C_full_frame.json
 ```
+
+If you want to INCLUDE chrome / libreoffice_calc (e.g. for paper runs where
+you've confirmed the upstream fixes landed), pass `--no-skip-default-broken`.
 
 What "good" looks like across the 9 runs:
 
@@ -117,13 +132,31 @@ What "good" looks like across the 9 runs:
 
 `results/deltavision.db` gets 9 rows with `benchmark='osworld'` and backends
 like `ui_tars_q4km_gguf_pixel_delta` / `_a11y_hybrid` / `_force_full_frame`.
-Query:
+
+**Sqlite3 CLI query** (Ubuntu: `apt install sqlite3` first — not present by
+default on fresh WSL Ubuntu 24.04):
 
 ```bash
 sqlite3 results/deltavision.db \
-    "SELECT id, backend, json_extract(metrics_json, '$.success_count') AS ok,
-     json_extract(metrics_json, '$.total_estimated_tokens') AS tok
+    "SELECT id, backend, json_extract(metrics_json, '\$.success_count') AS ok,
+     json_extract(metrics_json, '\$.total_estimated_tokens') AS tok
      FROM runs WHERE benchmark='osworld' ORDER BY id DESC LIMIT 9"
+```
+
+**Python alternative** (no sqlite3 CLI needed, stdlib only):
+
+```bash
+python3 -c "
+import sqlite3, json
+conn = sqlite3.connect('results/deltavision.db')
+rows = conn.execute(
+    \"\"\"SELECT id, backend, metrics_json FROM runs
+       WHERE benchmark='osworld' ORDER BY id DESC LIMIT 9\"\"\"
+).fetchall()
+for rid, backend, mj in rows:
+    m = json.loads(mj)
+    print(f'#{rid:3d} {backend:<50s} ok={m.get(\"success_count\")}/{m.get(\"n\")}  tokens={m.get(\"total_estimated_tokens\"):,}')
+"
 ```
 
 Full artifacts per run (config snapshot, per-task result log, token accounting)

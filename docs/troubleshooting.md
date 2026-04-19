@@ -179,6 +179,80 @@ but no corresponding DB row. Safe to delete, or backfill via
 
 ---
 
+## Long-running benchmark has gone silent
+
+stdout is block-buffered when not attached to a terminal (e.g. when
+redirected via `tee` or `>` or backgrounded). A 30-minute OSWorld run
+looks dead for 29 of those 30 minutes even though it's healthy.
+
+Always prefix benchmark commands with `PYTHONUNBUFFERED=1`:
+
+```bash
+PYTHONUNBUFFERED=1 python benchmarks/run_osworld.py ...
+```
+
+Or equivalently, pass `-u`:
+
+```bash
+python -u benchmarks/run_osworld.py ...
+```
+
+---
+
+## `sqlite3: command not found` in fresh WSL Ubuntu
+
+The sqlite3 CLI isn't in Ubuntu 24.04's base install. Two options:
+
+```bash
+# Install it
+sudo apt install sqlite3
+
+# OR use Python's stdlib (no install needed) — see docs/benchmarks.md
+# for a ready-made query snippet.
+```
+
+---
+
+## OSWorld VM triggers an 11 GB re-download when you run from a fresh cwd
+
+OSWorld's docker provider resolves `./docker_vm_data/` relative to the
+**current working directory** at env-construction time. If your existing
+VM image lives in `/mnt/c/Users/david/OSWorld/docker_vm_data/` but you run
+a benchmark script from `/tmp/my_clone/`, OSWorld doesn't find the image
+and starts a fresh download.
+
+As of commit after 2026-04-19, `benchmarks/run_osworld.py` `chdir`s into
+`--oswo-repo` before constructing DesktopEnv so the existing image is
+reused. If you're writing your own runner that uses OSWorld directly:
+
+```python
+import os
+os.chdir(str(oswo_repo_path))  # BEFORE DesktopEnv(...)
+env = DesktopEnv(provider_name="docker", ...)
+```
+
+---
+
+## Default `--max-tasks 3` gives you 0/3 successes
+
+OSWorld's `test_small.json` happens to have Chrome tasks first, which hit
+the upstream Playwright-asyncio bug and fail at setup (pre-agent-loop).
+A naive `--max-tasks 3` thus produces guaranteed 0/3 with no signal.
+
+As of commit after 2026-04-19, `run_osworld.py` skips `chrome` and
+`libreoffice_calc` by default (both have known-broken upstream code — see
+the OSWorld-integration section above). You can:
+
+```bash
+# Pick specific categories (recommended for the comprehensive test):
+python benchmarks/run_osworld.py --categories gimp,libreoffice_writer,vs_code --max-tasks 3 ...
+
+# Or disable the skip list (paper runs, once upstream fixes land):
+python benchmarks/run_osworld.py --no-skip-default-broken ...
+```
+
+---
+
 ## "Everything is broken, where do I start?"
 
 1. Does `python -c "import deltavision_os; print(deltavision_os.__version__)"`
